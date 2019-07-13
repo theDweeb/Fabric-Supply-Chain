@@ -1,0 +1,199 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer.energyXchain.com:
+    container_name: orderer.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer.energyXchain.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer.energyXchain.com/tls/:/var/hyperledger/orderer/tls
+        - orderer.energyXchain.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.producer.energyXchain.com:
+    container_name: peer0.producer.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.producer.energyXchain.com
+      - CORE_PEER_ADDRESS=peer0.producer.energyXchain.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.producer.energyXchain.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.producer.energyXchain.com:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.energyXchain.com:7051
+      - CORE_PEER_LOCALMSPID=ProducerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.producer.energyXchain.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+
+  peer1.producer.energyXchain.com:
+    container_name: peer1.producer.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.producer.energyXchain.com
+      - CORE_PEER_ADDRESS=peer1.producer.energyXchain.com:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.producer.energyXchain.com:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.producer.energyXchain.com:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.energyXchain.com:7051
+      - CORE_PEER_LOCALMSPID=ProducerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer1.producer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer1.producer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.producer.energyXchain.com:/var/hyperledger/production
+
+    ports:
+      - 8051:8051
+
+  peer0.consumer.energyXchain.com:
+    container_name: peer0.consumer.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.consumer.energyXchain.com
+      - CORE_PEER_ADDRESS=peer0.consumer.energyXchain.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.consumer.energyXchain.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.consumer.energyXchain.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.consumer.energyXchain.com:10051
+      - CORE_PEER_LOCALMSPID=ConsumerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer0.consumer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer0.consumer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.consumer.energyXchain.com:/var/hyperledger/production
+    ports:
+      - 9051:9051
+
+  peer1.consumer.energyXchain.com:
+    container_name: peer1.consumer.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.consumer.energyXchain.com
+      - CORE_PEER_ADDRESS=peer1.consumer.energyXchain.com:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.consumer.energyXchain.com:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.consumer.energyXchain.com:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.consumer.energyXchain.com:9051
+      - CORE_PEER_LOCALMSPID=ConsumerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer1.consumer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer1.consumer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.consumer.energyXchain.com:/var/hyperledger/production
+    ports:
+      - 10051:10051
+
+  peer0.shipper.energyXchain.com:
+    container_name: peer0.shipper.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.shipper.energyXchain.com
+      - CORE_PEER_ADDRESS=peer0.shipper.energyXchain.com:11051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.shipper.energyXchain.com:11052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.energyXchain.com:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.shipper.energyXchain.com:12051
+      - CORE_PEER_LOCALMSPID=ShipperMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer0.shipper.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer0.shipper.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.shipper.energyXchain.com:/var/hyperledger/production
+    ports:
+      - 11051:11051
+
+  peer1.shipper.energyXchain.com:
+    container_name: peer1.shipper.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.shipper.energyXchain.com
+      - CORE_PEER_ADDRESS=peer1.shipper.energyXchain.com:12051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.shipper.energyXchain.com:12052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.shipper.energyXchain.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.energyXchain.com:11051
+      - CORE_PEER_LOCALMSPID=ShipperMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer1.shipper.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer1.shipper.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.shipper.energyXchain.com:/var/hyperledger/production
+    ports:
+      - 12051:12051
+
+  peer0.transporter.energyXchain.com:
+    container_name: peer0.transporter.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.transporter.energyXchain.com
+      - CORE_PEER_ADDRESS=peer0.transporter.energyXchain.com:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.transporter.energyXchain.com:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.transporter.energyXchain.com:14051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.transporter.energyXchain.com:13051
+      - CORE_PEER_LOCALMSPID=TransporterMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer0.transporter.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer0.transporter.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.transporter.energyXchain.com:/var/hyperledger/production
+    ports:
+      - 13051:13051
+
+  peer1.transporter.energyXchain.com:
+    container_name: peer1.transporter.energyXchain.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.transporter.energyXchain.com
+      - CORE_PEER_ADDRESS=peer1.transporter.energyXchain.com:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.transporter.energyXchain.com:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.transporter.energyXchain.com:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.transporter.energyXchain.com:13051
+      - CORE_PEER_LOCALMSPID=TransporterMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer1.transporter.energyXchain.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer1.transporter.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.transporter.energyXchain.com:/var/hyperledger/production
+
+    ports:
+      - 14051:14051
