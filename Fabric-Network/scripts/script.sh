@@ -32,6 +32,10 @@ if [ "$LANGUAGE" = "java" ]; then
 	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/chaincode_example02/java/"
 fi
 
+if [ "$LANGUAGE" = "energy" ]; then
+	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/energy-trading/"
+fi
+
 echo "Channel name : "$CHANNEL_NAME
 
 # import utils

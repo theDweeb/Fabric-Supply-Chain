@@ -32,7 +32,7 @@ services:
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.producer.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/PRODUCER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/producer.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerProducer
+    container_name: ca-producer
     networks:
       - byfn
 
@@ -49,7 +49,7 @@ services:
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.consumer.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CONSUMER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/consumer.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerConsumer
+    container_name: ca-consumer
     networks:
       - byfn
 
@@ -66,7 +66,7 @@ services:
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.shipper.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/SHIPPER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/shipper.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerShipper
+    container_name: ca-shipper
     networks:
       - byfn
 
@@ -83,7 +83,7 @@ services:
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.transporter.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/TRANSPORTER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/transporter.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerTransporter
+    container_name: ca-transporter
     networks:
       - byfn
 
