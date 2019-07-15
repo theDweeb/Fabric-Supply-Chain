@@ -19,12 +19,12 @@ version: '2'
 networks:
   byfn:
 services:
-  ca0:
+  ca-producer:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-producer
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.producer.energyXchain.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/PRODUCER_PRIVATE_KEY
     ports:
@@ -36,16 +36,16 @@ services:
     networks:
       - byfn
 
-  ca1:
+  ca-consumer:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-consumer
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.consumer.energyXchain.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CONSUMER_PRIVATE_KEY
     ports:
-      - "8054:7054"
+      - "9054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.consumer.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CONSUMER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/consumer.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -53,16 +53,16 @@ services:
     networks:
       - byfn
 
-  ca2:
+  ca-shipper:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-shipper
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.shipper.energyXchain.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/SHIPPER_PRIVATE_KEY
     ports:
-      - "9054:7054"
+      - "11054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.shipper.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/SHIPPER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/shipper.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -70,16 +70,16 @@ services:
     networks:
       - byfn
 
-  ca3:
+  ca-transporter:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca-transporter
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_ENABLED=false
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.transporter.energyXchain.com-cert.pem
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/TRANSPORTER_PRIVATE_KEY
     ports:
-      - "10054:7054"
+      - "13054:7054"
     command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.transporter.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/TRANSPORTER_PRIVATE_KEY -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/transporter.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config

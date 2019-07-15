@@ -54,7 +54,8 @@
       "name": "Producer",
       "mspid": "ProducerMSP",
       "peers": [
-        "peer0.producer.energyXchain.com"
+        "peer0.producer.energyXchain.com",
+        "peer1.producer.energyXchain.com"
       ],
       "certificateAuthorities": [
         "ca-producer"
@@ -64,7 +65,8 @@
       "name": "Consumer",
       "mspid": "ConsumerMSP",
       "peers": [
-        "peer0.consumer.energyXchain.com"
+        "peer0.consumer.energyXchain.com",
+        "peer1.consumer.energyXchain.com"
       ],
       "certificateAuthorities": [
         "ca-consumer"
@@ -74,7 +76,8 @@
       "name": "Shipper",
       "mspid": "ShipperMSP",
       "peers": [
-        "peer0.shipper.energyXchain.com"
+        "peer0.shipper.energyXchain.com",
+        "peer1.shipper.energyXchain.com"
       ],
       "certificateAuthorities": [
         "ca-shipper"
@@ -84,7 +87,8 @@
       "name": "Transporter",
       "mspid": "TransporterMSP",
       "peers": [
-        "peer0.transporter.energyXchain.com"
+        "peer0.transporter.energyXchain.com",
+        "peer1.shipper.energyXchain.com"
       ],
       "certificateAuthorities": [
         "ca-transporter"
@@ -112,6 +116,14 @@
         "grpc.http2.keepalive_time": 15
       }
     },
+    "peer1.producer.energyXchain.com": {
+      "url": "grpc://localhost:8051",
+      "eventUrl": "grpc://localhost:8053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.producer.energyXchain.com",
+        "grpc.http2.keepalive_time": 15
+      }
+    },
     "peer0.consumer.energyXchain.com": {
       "url": "grpc://localhost:9051",
       "eventUrl": "grpc://localhost:9053",
@@ -119,18 +131,39 @@
         "ssl-target-name-override": "peer0.consumer.energyXchain.com"
       }
     },
+    "peer1.consumer.energyXchain.com": {
+      "url": "grpc://localhost:10051",
+      "eventUrl": "grpc://localhost:10053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.consumer.energyXchain.com"
+      }
+    },
     "peer0.shipper.energyXchain.com": {
       "url": "grpc://localhost:11051",
       "eventUrl": "grpc://localhost:11053",
       "grpcOptions": {
-        "ssl-target-name-override": "peer0.consumer.energyXchain.com"
+        "ssl-target-name-override": "peer0.shipper.energyXchain.com"
+      }
+    },
+    "peer1.shipper.energyXchain.com": {
+      "url": "grpc://localhost:12051",
+      "eventUrl": "grpc://localhost:12053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.shipper.energyXchain.com"
       }
     },
     "peer0.transporter.energyXchain.com": {
       "url": "grpc://localhost:13051",
       "eventUrl": "grpc://localhost:13053",
       "grpcOptions": {
-        "ssl-target-name-override": "peer0.consumer.energyXchain.com"
+        "ssl-target-name-override": "peer0.transporter.energyXchain.com"
+      }
+    },
+    "peer1.transporter.energyXchain.com": {
+      "url": "grpc://localhost:14051",
+      "eventUrl": "grpc://localhost:14053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.transporter.energyXchain.com"
       }
     }
   },
@@ -146,7 +179,7 @@
           "enrollSecret": "adminpw"
         }
       ],
-      "caName": "ca0"
+      "caName": "ca-producer"
     },
     "ca-consumer": {
       "url": "http://localhost:9054",
@@ -159,7 +192,7 @@
           "enrollSecret": "adminpw"
         }
       ],
-      "caName": "ca1"
+      "caName": "ca-consumer"
     },
     "ca-shipper": {
       "url": "http://localhost:11054",
@@ -172,7 +205,7 @@
           "enrollSecret": "adminpw"
         }
       ],
-      "caName": "ca2"
+      "caName": "ca-shipper"
     },
     "ca-transporter": {
       "url": "http://localhost:13054",
@@ -185,7 +218,7 @@
           "enrollSecret": "adminpw"
         }
       ],
-      "caName": "ca3"
+      "caName": "ca-transporter"
     }
   }
 }

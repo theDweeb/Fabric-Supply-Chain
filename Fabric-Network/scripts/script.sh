@@ -23,7 +23,9 @@ LANGUAGE=`echo "$LANGUAGE" | tr [:upper:] [:lower:]`
 COUNTER=1
 MAX_RETRY=10
 
-CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
+#CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
+CC_SRC_PATH="github.com/chaincode"
+
 if [ "$LANGUAGE" = "node" ]; then
 	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/chaincode_example02/node/"
 fi
@@ -33,7 +35,7 @@ if [ "$LANGUAGE" = "java" ]; then
 fi
 
 if [ "$LANGUAGE" = "energy" ]; then
-	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/energy-trading/"
+	CC_SRC_PATH="/github.com/chaincode/"
 fi
 
 echo "Channel name : "$CHANNEL_NAME
@@ -112,21 +114,21 @@ echo "Install chaincode on peer1.transporter..."
 installChaincode 1 4
 
 # Instantiate chaincode on peer0.org2
-echo "Instantiating chaincode on peer0.org3..."
+echo "Instantiating chaincode on peer0.consumer..."
 instantiateChaincode 0 2
 
 # Query chaincode on peer0.org1
-echo "Querying chaincode on peer0.org1..."
-chaincodeQuery 0 1 100
+# echo "Querying chaincode on peer0.org1..."
+# chaincodeQuery 0 1 100
 
-echo "Querying chaincode on peer0.org1..."
-chaincodeQuery 0 2 100
+# echo "Querying chaincode on peer0.org1..."
+# chaincodeQuery 0 2 100
 
-echo "Querying chaincode on peer0.org1..."
-chaincodeQuery 0 3 100
+# echo "Querying chaincode on peer0.org1..."
+# chaincodeQuery 0 3 100
 
-echo "Querying chaincode on peer0.org1..."
-chaincodeQuery 0 4 100
+# echo "Querying chaincode on peer0.org1..."
+# chaincodeQuery 0 4 100
 
 # Invoke chaincode on peer0.org1 and peer0.org2
 # echo "Sending invoke transaction on peer0.org1 peer0.org2..."
