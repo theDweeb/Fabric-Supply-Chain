@@ -1,4 +1,5 @@
-#Hyperledger Fabric Supply Chain Network
+# Hyperledger Fabric Supply Chain Network
+## Nodejs version 8.10.0 and npm 6.4.1 used
 
 ### Step 1
 #### Start the network with couchDB
@@ -17,6 +18,7 @@ docker-compose -f docker-compose-ca.yaml up -d
 #### Start the node app + SDK
 ```
 cd ../Fabric-Node-SDK
+npm install
 node ./bin/www
 ```
 *This will start the server on port 3000*
