@@ -27,7 +27,7 @@ node ./bin/www
 ### Step 4
 *open a new terminal*
 ```
-curl -X "http://localhost:3000/producer/query"
+curl -X POST "http://localhost:3000/producer/query"
 ```
 *This will add a user hard coded on the query endpoint*
 *The name is misleading but I am just using it to test at the moment*
