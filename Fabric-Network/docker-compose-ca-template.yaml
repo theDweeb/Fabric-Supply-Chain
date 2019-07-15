@@ -1,0 +1,160 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+# volumes:
+#   orderer.energyXchain.com:
+#   peer0.producer.energyXchain.com:
+#   peer1.producer.energyXchain.com:
+#   peer0.consumer.energyXchain.com:
+#   peer1.consumer.energyXchain.com:
+#   peer0.shipper.energyXchain.com:
+#   peer1.shipper.energyXchain.com:
+#   peer0.transporter.energyXchain.com:
+#   peer1.transporter.energyXchain.com:
+
+networks:
+  byfn:
+services:
+  ca0:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-producer
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.producer.energyXchain.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/PRODUCER_PRIVATE_KEY
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.producer.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/PRODUCER_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/producer.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca-producer
+    networks:
+      - byfn
+
+  ca1:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-consumer
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.consumer.energyXchain.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CONSUMER_PRIVATE_KEY
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.consumer.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CONSUMER_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/consumer.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca-consumer
+    networks:
+      - byfn
+
+  ca2:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-shipper
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.shipper.energyXchain.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/SHIPPER_PRIVATE_KEY
+    ports:
+      - "9054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.shipper.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/SHIPPER_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/shipper.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca-shipper
+    networks:
+      - byfn
+
+  ca3:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-transporter
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.transporter.energyXchain.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/TRANSPORTER_PRIVATE_KEY
+    ports:
+      - "10054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.transporter.energyXchain.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/TRANSPORTER_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/transporter.energyXchain.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca-transporter
+    networks:
+      - byfn
+
+  # orderer.energyXchain.com:
+  #   extends:
+  #     file:   base/docker-compose-base.yaml
+  #     service: orderer.energyXchain.com
+  #   container_name: orderer.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer0.producer.energyXchain.com:
+  #   container_name: peer0.producer.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer0.producer.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer1.producer.energyXchain.com:
+  #   container_name: peer1.producer.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer1.producer.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer0.consumer.energyXchain.com:
+  #   container_name: peer0.consumer.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer0.consumer.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer1.consumer.energyXchain.com:
+  #   container_name: peer1.consumer.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer1.consumer.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer0.shipper.energyXchain.com:
+  #   container_name: peer0.shipper.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer0.shipper.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer1.shipper.energyXchain.com:
+  #   container_name: peer1.shipper.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer1.shipper.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer0.transporter.energyXchain.com:
+  #   container_name: peer0.transporter.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer0.transporter.energyXchain.com
+  #   networks:
+  #     - byfn
+
+  # peer1.transporter.energyXchain.com:
+  #   container_name: peer1.transporter.energyXchain.com
+  #   extends:
+  #     file:  base/docker-compose-base.yaml
+  #     service: peer1.transporter.energyXchain.com
+  #   networks:
+  #     - byfn

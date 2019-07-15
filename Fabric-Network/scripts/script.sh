@@ -81,24 +81,35 @@ echo "Having all peers join the channel..."
 joinChannel
 
 ## Set the anchor peers for each org in the channel
-echo "Updating anchor peers for org1..."
+echo "Updating anchor peers for PRODUCER..."
 updateAnchorPeers 0 1
-echo "Updating anchor peers for org2..."
+echo "Updating anchor peers for CONSUMER..."
 updateAnchorPeers 0 2
-echo "Updating anchor peers for org1..."
+echo "Updating anchor peers for SHIPPER..."
 updateAnchorPeers 0 3
-echo "Updating anchor peers for org2..."
+echo "Updating anchor peers for TRANSPORTER..."
 updateAnchorPeers 0 4
 
 ## Install chaincode on peer0.org1 and peer0.org2
-echo "Installing chaincode on peer0.org1..."
+echo "Installing chaincode on peer0.producer..."
 installChaincode 0 1
-echo "Install chaincode on peer0.org2..."
+echo "Installing chaincode on peer1.producer..."
+installChaincode 1 1
+
+echo "Install chaincode on peer0.consumer..."
 installChaincode 0 2
-echo "Installing chaincode on peer0.org1..."
+echo "Install chaincode on peer1.consumer..."
+installChaincode 1 2
+
+echo "Installing chaincode on peer0.shipper..."
 installChaincode 0 3
-echo "Install chaincode on peer0.org2..."
+echo "Installing chaincode on peer1.shipper..."
+installChaincode 1 3
+
+echo "Install chaincode on peer0.transporter..."
 installChaincode 0 4
+echo "Install chaincode on peer1.transporter..."
+installChaincode 1 4
 
 # Instantiate chaincode on peer0.org2
 echo "Instantiating chaincode on peer0.org3..."
@@ -118,16 +129,12 @@ echo "Querying chaincode on peer0.org1..."
 chaincodeQuery 0 4 100
 
 # Invoke chaincode on peer0.org1 and peer0.org2
-echo "Sending invoke transaction on peer0.org1 peer0.org2..."
-chaincodeInvoke 0 1 0 2 0 3 0 4
-
-## Install chaincode on peer1.org2
-echo "Installing chaincode on peer1.org2..."
-installChaincode 1 2
+# echo "Sending invoke transaction on peer0.org1 peer0.org2..."
+# chaincodeInvoke 0 1 0 2 0 3 0 4
 
 # Query on chaincode on peer1.org2, check if the result is 90
-echo "Querying chaincode on peer1.org2..."
-chaincodeQuery 1 2 90
+# echo "Querying chaincode on peer1.org2..."
+# chaincodeQuery 1 2 90
 
 echo
 echo "========= All GOOD, BYFN execution completed =========== "

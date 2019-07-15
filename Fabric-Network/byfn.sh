@@ -283,7 +283,7 @@ function upgradeNetwork() {
 function networkDown() {
   # stop org3 containers also in addition to producer and consumer, in case we were running sample to add org3
   # stop kafka and zookeeper containers in case we're running with kafka consensus-type
-  docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_RAFT2 -f $COMPOSE_FILE_ORG3 down --volumes --remove-orphans
+  docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_RAFT2 -f $COMPOSE_FILE_ORG3 down --volumes --remove-orphans
 
   # Don't remove the generated artifacts -- note, the ledgers are always removed
   if [ "$MODE" != "restart" ]; then
@@ -297,7 +297,7 @@ function networkDown() {
     # remove orderer block and other channel configuration transactions and certs
     rm -rf channel-artifacts/*.block channel-artifacts/*.tx crypto-config ./org3-artifacts/crypto-config/ channel-artifacts/org3.json
     # remove the docker-compose yaml file that was customized to the example
-    rm -f docker-compose-e2e.yaml
+    rm -f docker-compose-ca.yaml
   fi
 }
 
@@ -315,7 +315,7 @@ function replacePrivateKey() {
   fi
 
   # Copy the template to the file that will be modified to add the private key
-  cp docker-compose-e2e-template.yaml docker-compose-e2e.yaml
+  cp docker-compose-ca-template.yaml docker-compose-ca.yaml
 
   # The next steps will replace the template's contents with the
   # actual values of the private key file names for the two CAs.
@@ -324,26 +324,26 @@ function replacePrivateKey() {
   cd crypto-config/peerOrganizations/producer.energyXchain.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
-  sed $OPTS "s/PRODUCER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  sed $OPTS "s/PRODUCER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
 
   cd crypto-config/peerOrganizations/consumer.energyXchain.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
-  sed $OPTS "s/CONSUMER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  sed $OPTS "s/CONSUMER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
 
-  cd crypto-config/peerOrganizations/producer.energyXchain.com/ca/
-  PRIV_KEY=$(ls *_sk)
-  cd "$CURRENT_DIR"
-  sed $OPTS "s/SHIPPER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
-  
   cd crypto-config/peerOrganizations/shipper.energyXchain.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
-  sed $OPTS "s/TRANSPORTER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-e2e.yaml
+  sed $OPTS "s/SHIPPER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
+  
+  cd crypto-config/peerOrganizations/transporter.energyXchain.com/ca/
+  PRIV_KEY=$(ls *_sk)
+  cd "$CURRENT_DIR"
+  sed $OPTS "s/TRANSPORTER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
 
   # If MacOSX, remove the temporary backup of the docker-compose file
   if [ "$ARCH" == "Darwin" ]; then
-    rm docker-compose-e2e.yamlt
+    rm docker-compose-ca.yamlt
   fi
 }
 
@@ -541,6 +541,8 @@ CHANNEL_NAME="mychannel"
 COMPOSE_FILE=docker-compose-cli.yaml
 #
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
+# CA docker compose file
+COMPOSE_FILE_CA=docker-compose-ca.yaml
 # org3 docker compose file
 COMPOSE_FILE_ORG3=docker-compose-org3.yaml
 # kafka and zookeeper compose file
