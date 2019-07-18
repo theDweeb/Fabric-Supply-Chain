@@ -58,9 +58,8 @@ curl -d '{"username":"USERNAME", "password":"PASSWORD", "roles": "ROLE", "affili
                 roles: roles,
                 affiliation: affiliation
             }
-
             logger.debug('Register request: ' + registerRequest.enrollmentID + ", " + registerRequest.affiliation);
-
+        
             return CAService.register(registerRequest, adminUser)
         }).then((enrollSecret) => {
             logger.debug('Registered ' + user.username + " successfully.")

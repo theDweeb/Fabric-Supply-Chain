@@ -11,6 +11,7 @@ let app = express();
 let producerIndexRouter = require('./organizations/producer/client/index');
 let producerQueryRouter = require('./organizations/producer/client/query');
 let producerCreateUserRouter = require('./organizations/producer/client/createUser');
+let producerInvokeRouter = require('./organizations/producer/client/invoke');
 
 // view engine setup.
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/producer/index', producerIndexRouter);
 app.use('/producer/query', producerQueryRouter);
 app.use('/producer/createUser', producerCreateUserRouter);
+app.use('/producer/invoke', producerInvokeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

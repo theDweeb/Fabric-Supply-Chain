@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 router.post("/", (req, res) => {
 /*
-curl -d '{"username":"Hank", "fnc": "query", "args": "a"}' -H "Content-Type: application/json" -X POST http://localhost:3000/producer/query
+curl -d '{"username":"admin", "fnc": "query", "args": "a"}' -H "Content-Type: application/json" -X POST http://localhost:3000/producer/query
 */
 
   let reqObj = req.body;
@@ -33,7 +33,6 @@ curl -d '{"username":"Hank", "fnc": "query", "args": "a"}' -H "Content-Type: app
       // Returns User context
       return client.getUserContext(username, true)
     }).then((user) => {
-      console.log(user)
       if(user === null){
         logger.warn('User in store not found: ' + username)
         throw new Error('User in store not found '+ username)
