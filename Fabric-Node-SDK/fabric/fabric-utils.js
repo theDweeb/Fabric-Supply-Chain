@@ -3,7 +3,6 @@ let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 const Client = require('fabric-client')
 const util = require('util');
 
-
 function init(cp){
     if(!ORGS){
         ORGS = Client.loadFromConfig(cp);

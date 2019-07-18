@@ -1,3 +1,4 @@
 hfc-kvs/*
 hfc-cvs/*
 logs/*
+node_modules

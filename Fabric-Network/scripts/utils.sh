@@ -150,7 +150,8 @@ instantiateChaincode() {
   # the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode instantiate -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
+  #  peer chaincode instantiate -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["a","10"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
     res=$?
     set +x
   else
@@ -316,7 +317,8 @@ chaincodeInvoke() {
   # it using the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode invoke -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+  #  peer chaincode invoke -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+    peer chaincode invoke -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["set", "a", "20"]}' >&log.txt
     res=$?
     set +x
   else

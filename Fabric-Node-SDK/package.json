@@ -21,6 +21,7 @@
     "fabric-network": "^1.4.2",
     "morgan": "^1.9.1",
     "path": "^0.12.7",
+    "pug": "^2.0.4",
     "winston": "^3.2.1"
   },
   "devDependencies": {

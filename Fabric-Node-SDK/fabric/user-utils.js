@@ -56,6 +56,8 @@ function createUser(client, username, password){
 
     let regReq = getRegisterRequest(username, password);
 
+    logger.debug(regReq.roles + ", " + regReq.affiliation)
+
     return client.setUserContext(getCACred())
         .then((adminUser) =>{
             logger.debug('Admin user: '+adminUser)
@@ -66,12 +68,13 @@ function createUser(client, username, password){
                 enrollmentSecret : secret
             }
             newMember._enrollmentSecret = secret;
+            logger.debug('secret: ' + enrollReq.enrollmentSecret)
             logger.debug('enrollment sucuessful secret:'+enrollReq)
             return copService.enroll(enrollReq)
         }).then((enrollment) =>{
             newMember.setRoles(regReq.roles);
             newMember.setAffiliation(regReq.affiliation);
-            logger.debug('enrollment sucuessful enrollment:'+enrollment)
+            logger.debug('enrollment successful enrollment:'+enrollment[0])
             return newMember.setEnrollment(enrollment.key, enrollment.certificate, client.getMspid())
         }).then((() =>{
             logger.info("created user :"+newMember)

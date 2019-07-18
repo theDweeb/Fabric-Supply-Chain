@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+let appRoot = require('app-root-path');
+let fabService = require(`${appRoot}/organizations/producer/fabric/fabric-interface`);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -7,9 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  
-  // obj = JSON.stringify(req.body)
-  // console.log(req.body)
+  fabService.makeUser("aswd", "1234")
   res.send("POST request from '/'");
 })
 

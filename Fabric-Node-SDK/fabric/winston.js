@@ -1,5 +1,5 @@
 let appRoot = require('app-root-path');
-var winston = require('winston');
+let winston = require('winston');
 const { combine,align, prettyPrint, timestamp, label, splat, printf, } = winston.format;
 const colorizer = winston.format.colorize();
 //
