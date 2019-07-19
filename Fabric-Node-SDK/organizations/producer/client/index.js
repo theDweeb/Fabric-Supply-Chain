@@ -10,35 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', async function(req, res, next) {
-  let request = req.body;
-
-  let org = request.org;
-  
-  let user = {
-    name: request.id,
-    roles: [request.role],
-    affiliation: request.affiliation,
-    secret: request.secret
-  }
-
-  let admin = {
-    username: "admin",
-    password: "adminpw"
-  }
-
-  let success = await createUser.createUser(admin, org, user);
-
-  if(success) {
-    res.send('SUCCESS\n');
-  } else {
-    res.send('FAILED\n');
-  }
-  
-
+  res.send("POST request from '/'");
 })
 
 module.exports = router;
-
-/*
-curl -d '{"org": "producer", "id": "gus", "secret": "1234", "role": "dog", "affiliation": "org1.department1"}' -H "Content-Type: application/json" -X POST http://localhost:3000/producer/index
-*/

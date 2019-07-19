@@ -1,58 +1,44 @@
+var express = require('express');
+var router = express.Router();
 let appRoot = require('app-root-path');
-let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
-let helper = require(`${appRoot}/fabric/helper.js`);
-const Client = require('fabric-client');
-const User = require('fabric-client').User;
+let createUser = require(`${appRoot}/fabric/createUser.js`);
 
 
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send("GET request from 'CREATE USER'");
+});
 
-let createUser = async function(admin, org, user) {
-    logger.debug('----------------------------------------------')
-    logger.debug(`--- Creating user for organization: ${org} -`);
-    logger.debug(`--- Admin signing off: ${admin.username} -----`)
-    logger.debug('----------------------------------------------')
-    let newUser = new User(user);
-    logger.debug(`new user: ${newUser._name}, role: ${newUser._roles}, affiliation: ${newUser._affiliation}`);
+router.post('/', async function(req, res, next) {
+  let request = req.body;
 
-    try {
-        let client = await helper.setClient(org, admin);
-        let adminService = await helper.getClient(org, admin);
-        let CA = await adminService.getCertificateAuthority();
+  let org = request.org;
+  
+  let user = {
+    name: request.id,
+    roles: [request.role],
+    affiliation: request.affiliation,
+    secret: request.secret
+  }
 
-        let registerRequest = {
-            enrollmentID: user.name,
-            enrollmentSecret: user.secret,
-            role: user.role,
-            affiliation: user.affiliation
-        }
+  let admin = {
+    username: "admin",
+    password: "adminpw"
+  }
 
-        logger.debug(`Registering user: ${user.name}`);
-        let enrollmentSecret = await CA.register(registerRequest, client);
-        logger.debug(`Successfully registered user: ${user.name}`);
-        let enrollmentRequest = {
-            enrollmentID: user.name,
-            enrollmentSecret: enrollmentSecret
-        }
+  let success = await createUser.createUser(admin, org, user);
 
-        newUser._enrollmentSecret = enrollmentSecret;
+  if(success) {
+    res.send('SUCCESS\n');
+  } else {
+    res.send('FAILED\n');
+  }
+  
 
-        logger.debug(`Enrolling user: ${user.name}...`);
-        let enrollmentResponse = await CA.enroll(enrollmentRequest);
-        logger.debug(`Successfully enrolled user: ${user.name}`);
-        
-        await newUser.setEnrollment(enrollmentResponse.key, enrollmentResponse.certificate, adminService.getMspid());
+})
 
-        logger.debug(`Setting user ${user.name} signing identity.`);
-        await adminService.setUserContext(newUser, false);
-        logger.debug(`Successfully set user ${user.name}'s signing identity.`);
+module.exports = router;
 
-        return true;
-
-    } catch (error) {
-        logger.error(`Error: ${error}`);
-        throw new Error(`Error: ${error}`);
-    }
-}
-
-
-exports.createUser = createUser;
+/*
+curl -d '{"org": "producer", "id": "steve", "secret": "1234", "role": "dev", "affiliation": "org1.department1"}' -H "Content-Type: application/json" -X POST http://localhost:3000/producer/createUser
+*/
