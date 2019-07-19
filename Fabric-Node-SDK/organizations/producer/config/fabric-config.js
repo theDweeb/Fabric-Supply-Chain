@@ -1,12 +1,14 @@
-//require('dotenv').config();
-//let config = require('./config')
-//let CP = config.CP
-let CP = 'cp-local.json'
 
-let CHANNEL = {
-    "chanName":"mychannel",
-    "ccName":"mycc",
-    "ccVer":"v1"
+let CP = 'cp-local.json';
+
+let PRODUCER = {
+    "channelName":"mychannel",
+    "CCName":"mycc",
+    "CCVersion":"v1",
+    "CACredentials": {
+        "username": "admin",
+        "password": "adminpw"
+    }
 };
 
-module.exports =  {CP, CHANNEL};
+module.exports =  {CP, PRODUCER};

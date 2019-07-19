@@ -4,11 +4,11 @@ const Client = require('fabric-client');
 const userUtil = require(`${appRoot}/fabric/user-utils`);
 const fabUtil = require(`${appRoot}/fabric/fabric-utils`);
 const fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`);
-const CP = fabConfig.CP;
+
 const CHAN = fabConfig.CHANNEL;
 let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 
-let client = Client.loadFromConfig(`${appRoot}/organizations/producer/config/${CP}`);
+
 
 exports.query = function(user, fcn, args){
   //TODO check if user is registered

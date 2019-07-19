@@ -41,9 +41,7 @@ curl -d '{"username":"USERNAME", "password":"PASSWORD", "roles": "ROLE", "affili
 
             CAService = client.getCertificateAuthority()
             logger.debug('Getting CA: ' + CAService);
-
-
-
+            
             logger.debug('Setting user ' + CACredentials.username + " context.");
             return client.setUserContext(CACredentials, true)
         }).then((adminUser) => {
