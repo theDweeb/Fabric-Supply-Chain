@@ -10,7 +10,7 @@ let app = express();
 // Routes
 let producerIndexRouter = require('./organizations/producer/client/index');
 let producerQueryRouter = require('./organizations/producer/client/query');
-let producerCreateUserRouter = require('./organizations/producer/client/createUser');
+let producerUsersRouter = require('./organizations/producer/client/users');
 let producerInvokeRouter = require('./organizations/producer/client/invoke');
 
 // view engine setup.
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/producer/index', producerIndexRouter);
 app.use('/producer/query', producerQueryRouter);
-app.use('/producer/createUser', producerCreateUserRouter);
+app.use('/producer/users', producerUsersRouter);
 app.use('/producer/invoke', producerInvokeRouter);
 
 // catch 404 and forward to error handler
