@@ -1,8 +1,14 @@
 var express = require('express');
 var router = express.Router();
 let appRoot = require('app-root-path');
-let query = require(`${appRoot}/fabric/query.js`);
+
+// Config
 let producer = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+let CHANNEL_NAME = producer.channelName;
+let CC_NAME = producer.CCName;
+
+// SDK
+let query = require(`${appRoot}/fabric/query.js`);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -19,7 +25,7 @@ router.post('/', async function(req, res, next) {
         args: request.args
     }
 
-    let response = await query.queryChaincode(user.org, user, producer.CCName, producer.channelName, user.fcn, user.args);
+    let response = await query.queryChaincode(user.org, user, CC_NAME, CHANNEL_NAME, user.fcn, user.args);
 
     // TODO(steve): Add function to add user asset to blockchain
 

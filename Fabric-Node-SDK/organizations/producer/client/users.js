@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 let appRoot = require('app-root-path');
-let make = require(`${appRoot}/fabric/createUser.js`);
+
+let fabric = require(`${appRoot}/fabric/createUser.js`);
 let helper = require(`${appRoot}/fabric/helper.js`)
 let producer = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
 
@@ -24,7 +25,7 @@ router.post('/create', async function(req, res) {
 
   let admin = producer.adminCred;
 
-  let response = await make.createUser(admin, org, user);
+  let response = await fabric.createUser(admin, org, user);
 
   // TODO(steve): Add function to add user asset to blockchain
 

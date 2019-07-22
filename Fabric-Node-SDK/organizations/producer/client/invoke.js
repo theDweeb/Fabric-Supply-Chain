@@ -5,9 +5,9 @@ let router = express.Router();
 let appRoot = require('app-root-path');
 
 // Config/logger
-const fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
-const chanName = fabConfig.channelName;
-const ccName = fabConfig.CCName;
+const producer = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+const CHANNEL_NAME = producer.channelName;
+const CC_NAME = producer.CCName;
 let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 
 // SDK
@@ -34,10 +34,8 @@ curl -d '{"username":"admin", "fnc": "set", "args": {""}}' -H "Content-Type: app
 
     let args = request.args;
     let fcn = request.fcn;
-    let channelName = chanName;
-    let CCName = ccName;
 
-    let response = await fabric.invoke(user.org, user, CCName, fcn, args, channelName);
+    let response = await fabric.invoke(user.org, user, CC_NAME, fcn, args, CHANNEL_NAME);
 
     if(response == "SUCCESS") {
         res.send(`Invoke successful!\n`);
