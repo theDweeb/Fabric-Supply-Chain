@@ -12,29 +12,26 @@ let getClient = async function(org, user) {
         username = user.id;
     }
 
+    logger.debug("(GET) " + username)
     try {
         if(org === "Producer" || "producer") {
             let cp = `${appRoot}/organizations/producer/config/cp-local.json`;
     
             let client = Client.loadFromConfig(cp);
-            logger.debug(`Connection profile loaded for organization: ${org}`);
+            logger.debug(`(GET) Connection profile loaded for organization: ${org}`);
     
             await client.initCredentialStores();
     
-            if(username != null) {
-                let user = await client.getUserContext(username, true);
-                if(!user) {
-                    logger.error(`User: ${username} was not found. (helper.getClient)`);
-                    throw new Error(`User: ${username} was not found. (helper.getClient)`);
-                } else {
-                    logger.debug(`User: ${username} is registered and enrolled`);
-                }
+
+            let userContext = await client.getUserContext(username, true);
+            if(!userContext) {
+                logger.error(`(GET) User: ${username} was not found. (helper.getClient)`);
+                throw new Error(`(GET) User: ${username} was not found. (helper.getClient)`);
             } else {
-                logger.error(`Username undefined or empty. (helper.getClient)`);
-                throw new Error(`Username undefined or empty. (helper.getClient)`);
+                logger.debug(`(GET) User: ${username} is registered and enrolled`);
             }
     
-            logger.debug(`Successfully retrieved client: ${username} from organzation: ${org}.`)
+            logger.debug(`(GET) Successfully retrieved client: ${username} from organzation: ${org}.`)
             return client;
         }
         else if(org === "Consumer" || "consumer") {
@@ -81,30 +78,26 @@ let setClient = async function(org, user) {
     } else {
         username = user.id;
     }
-
+    logger.debug(username)
     try {
         if(org === "Producer" || "producer") {
             let cp = `${appRoot}/organizations/producer/config/cp-local.json`;
     
             let client = Client.loadFromConfig(cp);
-            logger.debug(`Connection profile loaded for organization: ${org}`);
+            logger.debug(`(SET) Connection profile loaded for organization: ${org}`);
     
             await client.initCredentialStores();
-    
-            if(username) {
-                let newContext = await client.setUserContext(user, true);
-                if(!newContext) {
-                    logger.error(`User: ${username} was not found. (helper.getClient)`);
-                    //throw new Error(`User: ${username} was not found. (helper.getClient)`);
-                } else {
-                    logger.debug(`User: ${username} is registered and enrolled`);
-                    logger.debug(`Successfully retrieved client: ${username} from organzation: ${org}.`)
-                    return newContext;
-                }
+              
+            let newContext = await client.setUserContext(user, true);
+            if(!newContext) {
+                logger.error(`(SET) User: ${username} was not found. (helper.getClient)`);
+                //throw new Error(`User: ${username} was not found. (helper.getClient)`);
             } else {
-                logger.error(`Username undefined or empty. (helper.getClient)`);
-                //throw new Error(`Username undefined or empty. (helper.getClient)`);
+                logger.debug(`(SET) User: ${username} is registered and enrolled`);
+                logger.debug(`(SET) Successfully retrieved client: ${username} from organzation: ${org}.`)
             }
+
+            return newContext;
         }
         else if(org === "Consumer" || "consumer") {
             logger.debug(`Connection profile '${org}' loaded.`)

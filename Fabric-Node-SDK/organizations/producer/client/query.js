@@ -6,7 +6,7 @@ let producer = require(`${appRoot}/organizations/producer/config/fabric-config.j
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send("GET request from '/'");
+  res.send("GET request from 'query'");
 });
 
 router.post('/', async function(req, res, next) {

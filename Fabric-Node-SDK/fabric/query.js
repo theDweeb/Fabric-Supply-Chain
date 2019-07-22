@@ -1,7 +1,6 @@
 let appRoot = require('app-root-path');
 let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 let helper = require(`${appRoot}/fabric/helper.js`);
-const CHAN = require('fabric-client').queryByChaincode;
 
 let queryChaincode = async function(org, user, ccName, chanName, fcn, args) {
 

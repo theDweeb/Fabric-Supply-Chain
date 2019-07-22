@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   res.send("GET request from '/'");
 });
 
-router.post('/create', async function(req, res, next) {
+router.post('/create', async function(req, res) {
   let request = req.body;
 
   let org = request.org;
@@ -35,7 +35,7 @@ router.post('/create', async function(req, res, next) {
   }
 })
 
-router.post('/search', async function(req, res, next) {
+router.post('/search', async function(req, res) {
   let request = req.body;
 
   let org = request.org;
