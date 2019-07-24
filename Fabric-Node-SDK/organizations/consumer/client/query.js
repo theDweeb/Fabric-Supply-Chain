@@ -1,10 +1,10 @@
 // Node/Express
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 let appRoot = require('app-root-path');
 
 // Config
-let fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+let fabConfig = require(`${appRoot}/organizations/consumer/config/fabric-config.js`).CONSUMER;
 let CHANNEL_NAME = fabConfig.channelName;
 let CC_NAME = fabConfig.CCName;
 
@@ -12,11 +12,11 @@ let CC_NAME = fabConfig.CCName;
 let query = require(`${appRoot}/fabric/query.js`);
 
 // Endpoints
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.send("GET request from 'query'");
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/', async function(req, res) {
   let request = req.body;
 
   let user = {
@@ -33,6 +33,6 @@ router.post('/', async function(req, res, next) {
   } else {
   res.send(`Failed to create user '${user.name}!\n ${response.error}`);
   }
-  });
+});
 
 module.exports = router;

@@ -1,10 +1,11 @@
+
 // Express/Nodejs 
 let express = require('express');
 let router = express.Router();
 let appRoot = require('app-root-path');
 
 // Config/logger
-const fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+const fabConfig = require(`${appRoot}/organizations/transporter/config/fabric-config.js`).TRANSPORTER;
 const CHANNEL_NAME = fabConfig.channelName;
 const CC_NAME = fabConfig.CCName;
 let logger = require(`${appRoot}/fabric/winston`).getLogger(module);

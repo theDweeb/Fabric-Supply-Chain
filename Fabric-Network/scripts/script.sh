@@ -24,7 +24,7 @@ COUNTER=1
 MAX_RETRY=10
 
 #CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
-CC_SRC_PATH="github.com/chaincode/sample/"
+CC_SRC_PATH="github.com/chaincode/CC_BuySell/"
 
 if [ "$LANGUAGE" = "node" ]; then
 	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/chaincode_example02/node/"
@@ -137,6 +137,10 @@ chaincodeQuery 1 2 20
 echo
 echo "========= All GOOD, BYFN execution completed =========== "
 echo
+
+echo
+echo "==== Don't forget to remove /hfc-kvs and /hfc-cvs from SDK directory ===="
+echo 
 
 echo
 echo " _____   _   _   ____   "

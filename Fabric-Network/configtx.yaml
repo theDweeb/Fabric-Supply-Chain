@@ -464,3 +464,5 @@ Profiles:
                 Organizations:
                 - *Producer
                 - *Consumer
+                - *Shipper
+                - *Transporter

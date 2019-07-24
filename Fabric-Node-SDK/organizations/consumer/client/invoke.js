@@ -1,10 +1,11 @@
+
 // Express/Nodejs 
 let express = require('express');
 let router = express.Router();
 let appRoot = require('app-root-path');
 
 // Config/logger
-const fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+const fabConfig = require(`${appRoot}/organizations/consumer/config/fabric-config.js`).CONSUMER;
 const CHANNEL_NAME = fabConfig.channelName;
 const CC_NAME = fabConfig.CCName;
 let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
@@ -12,7 +13,6 @@ let logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 // SDK
 let fabric = require(`${appRoot}/fabric/invoke.js`);
 
-// Endpoints
 router.get('/', function(req, res) {
     res.send("GET request to 'invoke'");
 });

@@ -6,10 +6,10 @@ let appRoot = require('app-root-path');
 // Fabric Config/SDK
 let fabric = require(`${appRoot}/fabric/createUser.js`);
 let helper = require(`${appRoot}/fabric/helper.js`)
-let fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+let fabConfig = require(`${appRoot}/organizations/shipper/config/fabric-config.js`).SHIPPER;
 
 // Endpoints
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.send("GET request from '/'");
 });
 
@@ -17,7 +17,7 @@ router.post('/create', async function(req, res) {
   let request = req.body;
 
   let org = request.org;
-
+  
   let user = {
     id: request.id,
     roles: [request.roles],

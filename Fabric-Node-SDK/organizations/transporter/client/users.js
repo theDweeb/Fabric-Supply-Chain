@@ -1,12 +1,12 @@
-// Node/Express
+// Node
 var express = require('express');
 var router = express.Router();
 let appRoot = require('app-root-path');
 
-// Fabric Config/SDK
+// SDK
 let fabric = require(`${appRoot}/fabric/createUser.js`);
 let helper = require(`${appRoot}/fabric/helper.js`)
-let fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+let fabConfig = require(`${appRoot}/organizations/transporter/config/fabric-config.js`).TRANSPORTER;
 
 // Endpoints
 router.get('/', function(req, res, next) {
@@ -17,7 +17,7 @@ router.post('/create', async function(req, res) {
   let request = req.body;
 
   let org = request.org;
-
+  
   let user = {
     id: request.id,
     roles: [request.roles],

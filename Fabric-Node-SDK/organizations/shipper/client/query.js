@@ -4,7 +4,7 @@ var router = express.Router();
 let appRoot = require('app-root-path');
 
 // Config
-let fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+let fabConfig = require(`${appRoot}/organizations/shipper/config/fabric-config.js`).SHIPPER;
 let CHANNEL_NAME = fabConfig.channelName;
 let CC_NAME = fabConfig.CCName;
 

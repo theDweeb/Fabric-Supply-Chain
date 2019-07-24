@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('fab-client:server');
 var http = require('http');
+const appRoot = require('app-root-path');
+const logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 
 /**
  * Get port from environment and store in Express.
@@ -87,4 +89,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  logger.info("Hyperledger Fabric SDK Started");
+  logger.info("Listening on port " + bind);
 }

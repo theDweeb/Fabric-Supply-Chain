@@ -1,12 +1,12 @@
 // Node/Express
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 let appRoot = require('app-root-path');
 
 // Fabric Config/SDK
 let fabric = require(`${appRoot}/fabric/createUser.js`);
 let helper = require(`${appRoot}/fabric/helper.js`)
-let fabConfig = require(`${appRoot}/organizations/producer/config/fabric-config.js`).PRODUCER;
+let fabConfig = require(`${appRoot}/organizations/consumer/config/fabric-config.js`).CONSUMER;
 
 // Endpoints
 router.get('/', function(req, res, next) {

@@ -334,3 +334,8 @@ chaincodeInvoke() {
   echo "===================== Invoke transaction successful on $PEERS on channel '$CHANNEL_NAME' ===================== "
   echo
 }
+
+
+
+# peer chaincode instantiate -o orderer.energyXchain.com:7050 -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["a","10"]}' -P 'AND ('\''ProducerMSP.peer'\'','\''ConsumerMSP.peer'\'', '\''ShipperMSP.peer'\'','\''TransporterMSP.peer'\'')'
+# peer chaincode instantiate -o orderer.energyXchain.com:7050 -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["Init","CustomerA","ShipperA","12th July 2019","500", "110000012"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
