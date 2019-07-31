@@ -4,11 +4,11 @@
   "description": "Basic supply chain network",
   "version": "1.0.0",
   "client": {
-    "organization": "Transporter",
+    "organization": "Producer",
     "credentialStore": {
-      "path": "./hfc-kvs",
+      "path": "./organizations/transporter/hfc-kvs",
       "cryptoStore": {
-        "path": "./hfc-cvs"
+        "path": "./organizations/transporter/hfc-cvs"
       },
       "wallet": "wallet-name"
     }
@@ -25,7 +25,19 @@
           "ledgerQuery": true,
           "eventSource": true
         },
+        "peer1.producer.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
         "peer0.consumer.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.consumer.energyXchain.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
           "ledgerQuery": true,
@@ -37,7 +49,19 @@
           "ledgerQuery": true,
           "eventSource": true
         },
+        "peer1.shipper.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
         "peer0.transporter.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.transporter.energyXchain.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
           "ledgerQuery": true,
@@ -92,7 +116,13 @@
       ],
       "certificateAuthorities": [
         "ca-transporter"
-      ]
+      ],
+      "adminPrivateKey": {
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/keystore/3a48a11c608fcbcc82d60158c4852af86c081a078f5826cbf2bdd65bc8f5c82c_sk"
+      },
+      "signedCert": {
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/signcerts/Admin@transporter.energyXchain.com-cert.pem"
+      } 
     }
   },
   "orderers": {

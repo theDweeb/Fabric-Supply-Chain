@@ -38,6 +38,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/producer.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer0.producer.energyXchain.com:/var/hyperledger/production
     ports:
       - 7051:7051
@@ -60,6 +61,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer1.producer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/producer.energyXchain.com/peers/peer1.producer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/producer.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer1.producer.energyXchain.com:/var/hyperledger/production
 
     ports:
@@ -83,6 +85,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer0.consumer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer0.consumer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/consumer.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer0.consumer.energyXchain.com:/var/hyperledger/production
     ports:
       - 9051:9051
@@ -105,6 +108,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer1.consumer.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/consumer.energyXchain.com/peers/peer1.consumer.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/consumer.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer1.consumer.energyXchain.com:/var/hyperledger/production
     ports:
       - 10051:10051
@@ -127,6 +131,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer0.shipper.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer0.shipper.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/shipper.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer0.shipper.energyXchain.com:/var/hyperledger/production
     ports:
       - 11051:11051
@@ -149,6 +154,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer1.shipper.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/shipper.energyXchain.com/peers/peer1.shipper.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/shipper.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer1.shipper.energyXchain.com:/var/hyperledger/production
     ports:
       - 12051:12051
@@ -171,6 +177,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer0.transporter.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer0.transporter.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/transporter.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer0.transporter.energyXchain.com:/var/hyperledger/production
     ports:
       - 13051:13051
@@ -193,6 +200,7 @@ services:
         - /var/run/:/host/var/run/
         - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer1.transporter.energyXchain.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/transporter.energyXchain.com/peers/peer1.transporter.energyXchain.com/tls:/etc/hyperledger/fabric/tls
+        - ../crypto-config/peerOrganizations/transporter.energyXchain.com/users:/etc/hyperledger/fabric/users
         - peer1.transporter.energyXchain.com:/var/hyperledger/production
 
     ports:

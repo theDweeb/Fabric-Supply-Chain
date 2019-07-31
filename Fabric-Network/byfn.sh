@@ -314,12 +314,21 @@ function replacePrivateKey() {
     OPTS="-i"
   fi
 
+
+
+  CURRENT_DIR=$PWD
+  echo $PWD
+  SDK_DIR=$PWD/../Fabric-Node-SDK/organizations
   # Copy the template to the file that will be modified to add the private key
   cp docker-compose-ca-template.yaml docker-compose-ca.yaml
 
+  cp $SDK_DIR/producer/config/cp-local-template.json $SDK_DIR/producer/config/cp-local.json
+  cp $SDK_DIR/consumer/config/cp-local-template.json $SDK_DIR/consumer/config/cp-local.json
+  cp $SDK_DIR/shipper/config/cp-local-template.json $SDK_DIR/shipper/config/cp-local.json
+  cp $SDK_DIR/transporter/config/cp-local-template.json $SDK_DIR/transporter/config/cp-local.json
+
   # The next steps will replace the template's contents with the
   # actual values of the private key file names for the two CAs.
-  CURRENT_DIR=$PWD
 
   cd crypto-config/peerOrganizations/producer.energyXchain.com/ca/
   PRIV_KEY=$(ls *_sk)
@@ -345,6 +354,34 @@ function replacePrivateKey() {
   if [ "$ARCH" == "Darwin" ]; then
     rm docker-compose-ca.yamlt
   fi
+
+  cd crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/keystore/
+  PRIV_KEY=$(ls *_sk)
+  cd "$SDK_DIR/producer/config/"
+  sed $OPTS "s/PRODUCER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json
+  cd "$CURRENT_DIR";
+
+
+  cd crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/
+  PRIV_KEY=$(ls *_sk)
+  cd "$SDK_DIR/consumer/config/"
+  sed $OPTS "s/CONSUMER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json 
+  cd "$CURRENT_DIR";
+
+
+  cd crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/keystore/
+  PRIV_KEY=$(ls *_sk)
+  cd "$SDK_DIR/shipper/config/"
+  sed $OPTS "s/SHIPPER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json 
+  cd "$CURRENT_DIR";
+
+
+  cd crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/keystore/
+  PRIV_KEY=$(ls *_sk)
+  cd "$SDK_DIR/transporter/config/"
+  sed $OPTS "s/TRANSPORTER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json 
+  cd "$CURRENT_DIR";
+
 }
 
 # We will use the cryptogen tool to generate the cryptographic material (x509 certs)
@@ -474,6 +511,19 @@ function generateChannelArtifacts() {
 
   echo
   echo "#################################################################"
+  echo "### Generating channel configuration transaction 'channel1.tx' ###"
+  echo "#################################################################"
+  set -x
+  configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel1.tx -channelID $CHANNEL_NAME1
+  res=$?
+  set +x
+  if [ $res -ne 0 ]; then
+    echo "Failed to generate channel configuration transaction..."
+    exit 1
+  fi
+
+  echo
+  echo "#################################################################"
   echo "#######    Generating anchor peer update for ProducerMSP   ##########"
   echo "#################################################################"
   set -x
@@ -537,6 +587,7 @@ CLI_TIMEOUT=10
 CLI_DELAY=3
 # channel name defaults to "mychannel"
 CHANNEL_NAME="mychannel"
+CHANNEL_NAME1="mychannel1"
 # use this as the default docker-compose yaml definition
 COMPOSE_FILE=docker-compose-cli.yaml
 #

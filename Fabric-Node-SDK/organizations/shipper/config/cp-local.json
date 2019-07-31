@@ -6,9 +6,9 @@
   "client": {
     "organization": "Shipper",
     "credentialStore": {
-      "path": "./hfc-kvs",
+      "path": "./organizations/shipper/hfc-kvs",
       "cryptoStore": {
-        "path": "./hfc-cvs"
+        "path": "./organizations/shipper/hfc-cvs"
       },
       "wallet": "wallet-name"
     }
@@ -25,7 +25,19 @@
           "ledgerQuery": true,
           "eventSource": true
         },
+        "peer1.producer.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
         "peer0.consumer.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.consumer.energyXchain.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
           "ledgerQuery": true,
@@ -37,7 +49,19 @@
           "ledgerQuery": true,
           "eventSource": true
         },
+        "peer1.shipper.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
         "peer0.transporter.energyXchain.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer1.transporter.energyXchain.com": {
           "endorsingPeer": true,
           "chaincodeQuery": true,
           "ledgerQuery": true,
@@ -81,7 +105,13 @@
       ],
       "certificateAuthorities": [
         "ca-shipper"
-      ]
+      ],
+      "adminPrivateKey": {
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/keystore/f0bc7877bc219def1aeadc7cb33861c2d63ce8332653c032d9a27cfe4c73d6b2_sk"
+      },
+      "signedCert": {
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/signcerts/Admin@shipper.energyXchain.com-cert.pem"
+      } 
     },
     "Transporter": {
       "name": "Transporter",

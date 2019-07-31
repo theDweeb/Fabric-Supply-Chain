@@ -1,4 +1,3 @@
-
 let CP = 'cp-local.json';
 
 let TRANSPORTER = {

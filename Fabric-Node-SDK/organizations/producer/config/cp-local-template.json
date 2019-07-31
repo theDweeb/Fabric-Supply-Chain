@@ -104,7 +104,7 @@
         "ca-producer"
       ],
       "adminPrivateKey": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/keystore/7e105b092c18594ca8420e697d21ccf207597657d60e60174cc96d5f1b624ca8_sk"
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/keystore/PRODUCER_PRIVATE_KEY"
       },
       "signedCert": {
         "path":"../Fabric-Network/crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/signcerts/Admin@producer.energyXchain.com-cert.pem"

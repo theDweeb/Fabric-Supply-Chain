@@ -8,6 +8,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   res.send("POST request from '/'");
-});
+})
 
 module.exports = router;

@@ -3,7 +3,10 @@ const appRoot = require('app-root-path');
 const logger = require(`${appRoot}/fabric/winston`).getLogger(module);
 const Client = require('fabric-client');
 
+
 // Getters
+
+// getClient returns a Client instance with the associated connection profile / organization
 let getClient = async function(org, user) {
     let username;
     if(user.id == undefined) {
@@ -11,46 +14,93 @@ let getClient = async function(org, user) {
     } else {
         username = user.id;
     }
-
-    logger.debug("(GET) " + username)
+    let orgName = org.toLowerCase();
+    logger.debug(`(GET) org name: ${orgName}`);
+    logger.debug(`(GET) username: ${username}`)
     try {
-        if(org === "Producer" || "producer") {
+        /* Producer */
+        if(orgName == "producer") {
             let cp = `${appRoot}/organizations/producer/config/cp-local.json`;
-    
+
             let client = Client.loadFromConfig(cp);
-            logger.debug(`(GET) Connection profile loaded for organization: ${org}`);
+            logger.debug(`(GET) Connection profile loaded for organization: ${orgName}`);
     
             await client.initCredentialStores();
     
-
             let userContext = await client.getUserContext(username, true);
             if(!userContext) {
                 logger.error(`(GET) User: ${username} was not found. (helper.getClient)`);
-                throw new Error(`(GET) User: ${username} was not found. (helper.getClient)`);
+                return false;
             } else {
                 logger.debug(`(GET) User: ${username} is registered and enrolled`);
             }
     
-            logger.debug(`(GET) Successfully retrieved client: ${username} from organzation: ${org}.`)
+            logger.debug(`(GET) Successfully retrieved client: ${username} from organzation: ${orgName}.`)
             return client;
         }
-        else if(org === "Consumer" || "consumer") {
-            logger.debug(`Connection profile '${org}' loaded.`)
+        /* Consumer */
+        else if(orgName == "consumer") {
             let cp = `${appRoot}/organizations/consumer/config/cp-local.json`;
-            return cp;
+    
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(GET) Connection profile loaded for organization: ${orgName}`);
+    
+            await client.initCredentialStores();
+    
+            let userContext = await client.getUserContext(username, true);
+            if(!userContext) {
+                logger.error(`(GET) User: ${username} was not found. (helper.getClient)`);
+                return false;
+            } else {
+                logger.debug(`(GET) User: ${username} is registered and enrolled`);
+            }
+    
+            logger.debug(`(GET) Successfully retrieved client: ${username} from organzation: ${orgName}.`)
+            return client;
         }
-        else if(org === "Transporter" || "transporter") {
-            logger.debug(`Connection profile '${org}' loaded.`)
-            let cp = `${appRoot}/organizations/transporter/config/cp-local.json`;
-            return cp;
-        }
-        else if(org === "Shipper" || "shipper") {
-            logger.debug(`Connection profile '${org}' loaded.`)
+        /* Shipper */
+        else if(orgName == "shipper") {
             let cp = `${appRoot}/organizations/shipper/config/cp-local.json`;
-            return cp;
+    
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(GET) Connection profile loaded for organization: ${orgName}`);
+    
+            await client.initCredentialStores();
+    
+            let userContext = await client.getUserContext(username, true);
+            if(!userContext) {
+                logger.error(`(GET) User: ${username} was not found. (helper.getClient)`);
+                return false;
+            } else {
+                logger.debug(`(GET) User: ${username} is registered and enrolled`);
+            }
+    
+            logger.debug(`(GET) Successfully retrieved client: ${username} from organzation: ${orgName}.`)
+            return client;
         }
+        /* Transporter */
+        else if(orgName == "transporter") {
+            let cp = `${appRoot}/organizations/transporter/config/cp-local.json`;
+    
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(GET) Connection profile loaded for organization: ${orgName}`);
+    
+            await client.initCredentialStores();
+    
+            let userContext = await client.getUserContext(username, true);
+            if(!userContext) {
+                logger.error(`(GET) User: ${username} was not found. (helper.getClient)`);
+                return false;
+            } else {
+                logger.debug(`(GET) User: ${username} is registered and enrolled`);
+            }
+    
+            logger.debug(`(GET) Successfully retrieved client: ${username} from organzation: ${orgName}.`)
+            return client;
+        }
+
         else {
-            logger.error(`Connection profile '${org}' not found.`)
+            logger.error(`Connection profile '${orgName}' not found.`)
             throw new Error(`User not found`)
         }
     } catch(error) {
@@ -58,19 +108,9 @@ let getClient = async function(org, user) {
     }
 }
 
-let getChannel = async function(client, chanName) {
-        let channel = client.getChannel(chanName);
-        return channel;
-}
-
-let query = async function(client, request, chanName) {
-    logger.debug(JSON.stringify(request))
-    let channel = client.getChannel(chanName);
-    let proposal = channel.queryByChaincode(request)
-    return proposal;
-}
-
 // Setters
+
+// setClient sets the current signing authority to the user/organization
 let setClient = async function(org, user) {
     let username;
     if(user.id == undefined) {
@@ -78,44 +118,56 @@ let setClient = async function(org, user) {
     } else {
         username = user.id;
     }
-    logger.debug(username)
+    let orgName = org.toLowerCase();
+
     try {
-        if(org === "Producer" || "producer") {
+        /* Producer */
+        if(orgName == "producer") {
             let cp = `${appRoot}/organizations/producer/config/cp-local.json`;
     
             let client = Client.loadFromConfig(cp);
-            logger.debug(`(SET) Connection profile loaded for organization: ${org}`);
+            logger.debug(`(SET) Connection profile loaded for organization: ${orgName}`);
+    
+            await client.initCredentialStores();
+
+            return await client.setUserContext(user);
+        }
+        /* Consumer */
+        else if(orgName == "consumer") {
+            let cp = `${appRoot}/organizations/consumer/config/cp-local.json`;
+    
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SET) Connection profile loaded for organization: ${orgName}`);
     
             await client.initCredentialStores();
               
-            let newContext = await client.setUserContext(user, true);
-            if(!newContext) {
-                logger.error(`(SET) User: ${username} was not found. (helper.getClient)`);
-                //throw new Error(`User: ${username} was not found. (helper.getClient)`);
-            } else {
-                logger.debug(`(SET) User: ${username} is registered and enrolled`);
-                logger.debug(`(SET) Successfully retrieved client: ${username} from organzation: ${org}.`)
-            }
-
-            return newContext;
+            return await client.setUserContext(user);
         }
-        else if(org === "Consumer" || "consumer") {
-            logger.debug(`Connection profile '${org}' loaded.`)
-            let cp = `${appRoot}/organizations/consumer/config/cp-local.json`;
-            return cp;
-        }
-        else if(org === "Transporter" || "transporter") {
-            logger.debug(`Connection profile '${org}' loaded.`)
-            let cp = `${appRoot}/organizations/transporter/config/cp-local.json`;
-            return cp;
-        }
-        else if(org === "Shipper" || "shipper") {
-            logger.debug(`Connection profile '${org}' loaded.`)
+        /* Shipper */
+        else if(orgName == "shipper") {
             let cp = `${appRoot}/organizations/shipper/config/cp-local.json`;
-            return cp;
+    
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SET) Connection profile loaded for organization: ${orgName}`);
+    
+            await client.initCredentialStores();
+              
+            return await client.setUserContext(user);
         }
+        /* Transporter */
+        else if(orgName == "transporter") {
+            let cp = `${appRoot}/organizations/transporter/config/cp-local.json`;
+    
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SET) Connection profile loaded for organization: ${orgName}`);
+    
+            await client.initCredentialStores();
+              
+            return await client.setUserContext(user);
+        }
+
         else {
-            logger.error(`Connection profile '${org}' not found.`)
+            logger.error(`Connection profile '${orgName}' not found.`)
         }
     } catch (error) {
         return error;
@@ -124,6 +176,4 @@ let setClient = async function(org, user) {
 }
 
 exports.getClient = getClient;
-exports.getChannel = getChannel;
-exports.query = query;
 exports.setClient = setClient;

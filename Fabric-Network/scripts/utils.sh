@@ -151,7 +151,7 @@ instantiateChaincode() {
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
   #  peer chaincode instantiate -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
-    peer chaincode instantiate -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["a","10"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.energyXchain.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["Init","CustomerA","ShipperA","12th July 2019","500", "110000012"]}' -P "AND ('ProducerMSP.peer','ConsumerMSP.peer', 'ShipperMSP.peer','TransporterMSP.peer')" >&log.txt
     res=$?
     set +x
   else

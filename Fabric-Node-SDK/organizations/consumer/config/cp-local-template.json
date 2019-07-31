@@ -4,35 +4,16 @@
   "description": "Basic supply chain network",
   "version": "1.0.0",
   "client": {
-    "organization": "Producer",
+    "organization": "Consumer",
     "credentialStore": {
-      "path": "./organizations/producer/hfc-kvs",
+      "path": "./organizations/consumer/hfc-kvs",
       "cryptoStore": {
-        "path": "./organizations/producer/hfc-cvs"
+        "path": "./organizations/consumer/hfc-cvs"
       },
       "wallet": "wallet-name"
     }
   },
   "channels": {
-    "mychannel1": {
-      "orderers": [
-        "orderer.energyXchain.com"
-      ],
-      "peers": {
-        "peer0.producer.energyXchain.com": {
-          "endorsingPeer": true,
-          "chaincodeQuery": true,
-          "ledgerQuery": true,
-          "eventSource": true
-        },
-        "peer1.producer.energyXchain.com": {
-          "endorsingPeer": true,
-          "chaincodeQuery": true,
-          "ledgerQuery": true,
-          "eventSource": true
-        }
-      }
-    },
     "mychannel": {
       "orderers": [
         "orderer.energyXchain.com"
@@ -102,13 +83,7 @@
       ],
       "certificateAuthorities": [
         "ca-producer"
-      ],
-      "adminPrivateKey": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/keystore/7e105b092c18594ca8420e697d21ccf207597657d60e60174cc96d5f1b624ca8_sk"
-      },
-      "signedCert": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/signcerts/Admin@producer.energyXchain.com-cert.pem"
-      } 
+      ]
     },
     "Consumer": {
       "name": "Consumer",
@@ -119,7 +94,13 @@
       ],
       "certificateAuthorities": [
         "ca-consumer"
-      ]
+      ],
+      "adminPrivateKey": {
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/CONSUMER_PRIVATE_KEY"
+      },
+      "signedCert": {
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/signcerts/Admin@consumer.energyXchain.com-cert.pem"
+      } 
     },
     "Shipper": {
       "name": "Shipper",

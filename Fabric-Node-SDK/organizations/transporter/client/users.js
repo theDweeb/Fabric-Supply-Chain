@@ -1,23 +1,23 @@
-// Node
+// Node/Express
 var express = require('express');
 var router = express.Router();
 let appRoot = require('app-root-path');
 
-// SDK
-let fabric = require(`${appRoot}/fabric/createUser.js`);
-let helper = require(`${appRoot}/fabric/helper.js`)
+// Fabric Config/SDK
+let fabric = require(`${appRoot}/fabric/user-util.js`);
 let fabConfig = require(`${appRoot}/organizations/transporter/config/fabric-config.js`).TRANSPORTER;
 
 // Endpoints
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.send("GET request from '/'");
 });
 
+// Create a user
 router.post('/create', async function(req, res) {
   let request = req.body;
 
   let org = request.org;
-  
+
   let user = {
     id: request.id,
     roles: [request.roles],
@@ -29,15 +29,10 @@ router.post('/create', async function(req, res) {
 
   let response = await fabric.createUser(admin, org, user);
 
-  // TODO(steve): Add function to add user asset to blockchain
+  res.send(response);
+});
 
-  if(response.success) {
-    res.send(`User creation '${user.id}' success!`);
-  } else {
-    res.send(`Failed to create user '${user.id}!\n ${response.error}`);
-  }
-})
-
+// Search for an enrolled user
 router.post('/search', async function(req, res) {
   let request = req.body;
 
@@ -50,13 +45,9 @@ router.post('/search', async function(req, res) {
     secret: request.secret
   }
 
-  let response = await helper.getClient(org, user);
+  let response = await fabric.searchUser(org, user);
 
-  if(response != {}) {
-    res.send(`User found '${user.id}' success!`);
-  } else {
-    res.send(`Failed to find user '${user.id}!\n ${response.error}`);
-  }
-})
+  res.send(response);
+});
 
 module.exports = router;
