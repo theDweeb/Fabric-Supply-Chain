@@ -5,7 +5,7 @@
 - **Node.js version 8.9.0+ (but not higher than 9.0)**
 - **Docker and Docker Compose (latest)**
 - **Golang (latest) with $GOPATH set**
-- **[Chaincode](https://www.github.com/EnergyXChain/CC_BuySell "Buy Sell CC") installed to $GOPATH/src/github.com/EnergyXChain/chaincode**
+- **Chaincode installed to $GOPATH/src/github.com/chainergy/chaincode**
 
 # Fabric-Network
 ## Bringing up the network.
@@ -42,6 +42,11 @@ cd ../Fabric-Node-SDK
 npm install
 ```
 
+**If you've restarted the fabric network you will need to delete the old certificates and create new users**
+``` bash
+./fresh.sh
+```
+
 ### Starting the node app server
 ``` bash
 npm run dev
@@ -50,7 +55,7 @@ npm run dev
 
 **This uses a module called 'nodemon' to restart the server whenever a change is made**
 
-### Using the API
+### Using the API (CAN USE FRONT END NOW)
 #### Send POST requests to the various endpoints:
 - **/ORGNAME/users/create**
 ``` JSON
@@ -144,3 +149,13 @@ As of now the scripts only generate two (2) channels, if you wish to create and 
 	"peers": ["peer0.ORGNAME.energyXchain.com"]
 }
 ```
+
+# Front-end
+**Start the react app**
+``` bash
+npm start
+```
+
+**It will ask you to start on a different port (SDK is running on 3000) just accept**
+
+**Login with either "producer, consumer, transporter, shipper"**
