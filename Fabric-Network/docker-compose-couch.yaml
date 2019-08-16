@@ -24,7 +24,7 @@ services:
     networks:
       - byfn
 
-  peer0.producer.energyXchain.com:
+  peer0.producer.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p0-producer-db:5984
@@ -51,7 +51,7 @@ services:
     networks:
       - byfn
 
-  peer1.producer.energyXchain.com:
+  peer1.producer.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p1-producer-db:5984
@@ -78,7 +78,7 @@ services:
     networks:
       - byfn
 
-  peer0.consumer.energyXchain.com:
+  peer0.consumer.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p0-consumer-db:5984
@@ -105,7 +105,7 @@ services:
     networks:
       - byfn
 
-  peer1.consumer.energyXchain.com:
+  peer1.consumer.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p1-consumer-db:5984
@@ -132,7 +132,7 @@ services:
     networks:
       - byfn
 
-  peer0.shipper.energyXchain.com:
+  peer0.shipper.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p0-shipper-db:5984
@@ -159,7 +159,7 @@ services:
     networks:
       - byfn
 
-  peer1.shipper.energyXchain.com:
+  peer1.shipper.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p1-shipper-db:5984
@@ -186,7 +186,7 @@ services:
     networks:
       - byfn
 
-  peer0.transporter.energyXchain.com:
+  peer0.transporter.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p0-transporter-db:5984
@@ -213,7 +213,7 @@ services:
     networks:
       - byfn
 
-  peer1.transporter.energyXchain.com:
+  peer1.transporter.chainergy.com:
     environment:
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=p1-transporter-db:5984

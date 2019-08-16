@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-class BuyGas extends Component {
+class SellAsset extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            seller: '',
+            buyer: '',
             volume: '',
             deliverypoints: ''
         }
     }
 
-    onSellerChange = (event) => {
-        this.setState({ seller: event.target.value });
+    onBuyerChange = (event) => {
+        this.setState({ buyer: event.target.value });
     }
 
     onVolumeChange = (event) => {
@@ -30,7 +30,7 @@ class BuyGas extends Component {
                 org: this.props.activeOrg,
                 id: "admin",
                 fcn: "initBuySell",
-                args: [this.props.activeOrg,this.state.seller,new Date(),this.state.volume, this.state.deliverypoints],
+                args: [this.state.buyer, this.props.activeOrg, new Date(), this.state.volume, this.state.deliverypoints],
                 CCName: "mycc",
                 channelName: "mychannel"
             })
@@ -38,48 +38,49 @@ class BuyGas extends Component {
             .then(response => response.json())
             .then(data => {
                 alert(`${data.message}\n
-                Gas bought: ${this.state.volume}\n
-                Seller: ${this.state.seller}\n
+                Asset sold: ${this.state.volume}\n
+                Customer: ${this.state.buyer}\n
                 Delivery Points: ${this.state.deliverypoints}`);
             })
     }
 
     render() {
         return (
-            <article className="br3 background b--black-10 w-100 w-50-m w-25-l mw6 shadow-4 center">
+            <article className="br3 background b--black-10 mv1 w-100 w-50-m w-25-l mw6 shadow-4 center">
                 <main className=" black-80 ma5">
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                             <legend className="f1 fw6 ph0 mh0 tc navy">Buy/Sell Agreement</legend>
                             <div className="mt3">
-                                <label className="b db fw6 lh-copy f6 dark-blue tc" htmlFor="buyer">Buyer<span className="b red">(YOU)</span></label>
+                                <label className="db fw6 lh-copy f6 dark-blue tc" htmlFor="seller">Seller<span className="b red">(YOU)</span></label>
                                 <input
-                                    className="pa2 input-reset  bg-transparent hover-bg-light-blue ba dark-blue hover-white w-100"
-                                    type="text"
-                                    name="buyer"
-                                    id="buyer"
-                                    value={this.props.activeOrg}
-                                    readOnly />
-                            </div>
-                            <div className="mt3">
-                                <label className="db fw6 lh-copy f6 dark-blue tc" htmlFor="seller">Seller</label>
-                                <input
-                                    onChange={this.onSellerChange}
                                     className="pa2 input-reset  bg-transparent hover-bg-light-blue ba dark-blue hover-white w-100"
                                     type="text"
                                     name="seller"
                                     id="seller"
-                                    placeholder="Enter Seller Name" />
+                                    value={this.props.activeOrg}
+                                    readOnly />
                             </div>
                             <div className="mt3">
-                                <label className="db fw6 lh-copy f6 dark-blue tc" htmlFor="gasvolume">Gas Volume</label>
+                                <label className="b db fw6 lh-copy f6 dark-blue tc" htmlFor="buyer">Buyer</label>
+                                <input
+                                    onChange={this.onBuyerChange}
+                                    className="pa2 input-reset  bg-transparent hover-bg-light-blue ba dark-blue hover-white w-100"
+                                    type="text"
+                                    name="buyer"
+                                    id="buyer"
+                                    placeholder="Enter Buyer Name"
+                                />
+                            </div>
+                            <div className="mt3">
+                                <label className="db fw6 lh-copy f6 dark-blue tc" htmlFor="assetvolume">Asset Volume</label>
                                 <input
                                     onChange={this.onVolumeChange}
                                     className="pa2 input-reset  bg-transparent hover-bg-light-blue ba dark-blue hover-white w-100"
                                     type="text"
-                                    name="gasvolume"
-                                    id="gasvolume"
-                                    placeholder="Enter Gas Volume Amount" />
+                                    name="assetvolume"
+                                    id="assetvolume"
+                                    placeholder="Enter Asset Amount" />
                             </div>
                             <div className="mv3">
                                 <label className="db fw6 lh-copy f6 dark-blue tc" htmlFor="deliverypoints">Delivery Points</label>
@@ -106,4 +107,4 @@ class BuyGas extends Component {
     }
 }
 
-export default BuyGas;
+export default SellAsset;

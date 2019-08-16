@@ -118,7 +118,7 @@
         "ca-transporter"
       ],
       "adminPrivateKey": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/keystore/79261d05f024c2c0bb9ce4b35555785808870c27fdd5d9c19a80be705e6614cb_sk"
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/keystore/88bbacfbb8503145655315a43fbd2eac44e741d967797f7852e0b96e84308122_sk"
       },
       "signedCert": {
         "path":"../Fabric-Network/crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/signcerts/Admin@transporter.energyXchain.com-cert.pem"

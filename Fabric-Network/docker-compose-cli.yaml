@@ -6,90 +6,90 @@
 version: '2'
 
 volumes:
-  orderer.energyXchain.com:
-  peer0.producer.energyXchain.com:
-  peer1.producer.energyXchain.com:
-  peer0.consumer.energyXchain.com:
-  peer1.consumer.energyXchain.com:
-  peer0.shipper.energyXchain.com:
-  peer1.shipper.energyXchain.com:
-  peer0.transporter.energyXchain.com:
-  peer1.transporter.energyXchain.com:
+  orderer.chainergy.com:
+  peer0.producer.chainergy.com:
+  peer1.producer.chainergy.com:
+  peer0.consumer.chainergy.com:
+  peer1.consumer.chainergy.com:
+  peer0.shipper.chainergy.com:
+  peer1.shipper.chainergy.com:
+  peer0.transporter.chainergy.com:
+  peer1.transporter.chainergy.com:
 
 networks:
   byfn:
 
 services:
 
-  orderer.energyXchain.com:
+  orderer.chainergy.com:
     extends:
       file:   base/docker-compose-base.yaml
-      service: orderer.energyXchain.com
-    container_name: orderer.energyXchain.com
+      service: orderer.chainergy.com
+    container_name: orderer.chainergy.com
     networks:
       - byfn
 
-  peer0.producer.energyXchain.com:
-    container_name: peer0.producer.energyXchain.com
+  peer0.producer.chainergy.com:
+    container_name: peer0.producer.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.producer.energyXchain.com
+      service: peer0.producer.chainergy.com
     networks:
       - byfn
 
-  peer1.producer.energyXchain.com:
-    container_name: peer1.producer.energyXchain.com
+  peer1.producer.chainergy.com:
+    container_name: peer1.producer.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.producer.energyXchain.com
+      service: peer1.producer.chainergy.com
     networks:
       - byfn
 
-  peer0.consumer.energyXchain.com:
-    container_name: peer0.consumer.energyXchain.com
+  peer0.consumer.chainergy.com:
+    container_name: peer0.consumer.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.consumer.energyXchain.com
+      service: peer0.consumer.chainergy.com
     networks:
       - byfn
 
-  peer1.consumer.energyXchain.com:
-    container_name: peer1.consumer.energyXchain.com
+  peer1.consumer.chainergy.com:
+    container_name: peer1.consumer.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.consumer.energyXchain.com
+      service: peer1.consumer.chainergy.com
     networks:
       - byfn
 
-  peer0.shipper.energyXchain.com:
-    container_name: peer0.shipper.energyXchain.com
+  peer0.shipper.chainergy.com:
+    container_name: peer0.shipper.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.shipper.energyXchain.com
+      service: peer0.shipper.chainergy.com
     networks:
       - byfn
 
-  peer1.shipper.energyXchain.com:
-    container_name: peer1.shipper.energyXchain.com
+  peer1.shipper.chainergy.com:
+    container_name: peer1.shipper.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.shipper.energyXchain.com
+      service: peer1.shipper.chainergy.com
     networks:
       - byfn
 
-  peer0.transporter.energyXchain.com:
-    container_name: peer0.transporter.energyXchain.com
+  peer0.transporter.chainergy.com:
+    container_name: peer0.transporter.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.transporter.energyXchain.com
+      service: peer0.transporter.chainergy.com
     networks:
       - byfn
 
-  peer1.transporter.energyXchain.com:
-    container_name: peer1.transporter.energyXchain.com
+  peer1.transporter.chainergy.com:
+    container_name: peer1.transporter.chainergy.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer1.transporter.energyXchain.com
+      service: peer1.transporter.chainergy.com
     networks:
       - byfn
 
@@ -104,30 +104,30 @@ services:
       - FABRIC_LOGGING_SPEC=DEBUG
       #- FABRIC_LOGGING_SPEC=INFO
       - CORE_PEER_ID=cli
-      - CORE_PEER_ADDRESS=peer0.producer.energyXchain.com:7051
+      - CORE_PEER_ADDRESS=peer0.producer.chainergy.com:7051
       - CORE_PEER_LOCALMSPID=ProducerMSP
       - CORE_PEER_TLS_ENABLED=false
-      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.energyXchain.com/peers/peer0.producer.energyXchain.com/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.chainergy.com/peers/peer0.producer.chainergy.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.chainergy.com/peers/peer0.producer.chainergy.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.chainergy.com/peers/peer0.producer.chainergy.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/producer.chainergy.com/users/Admin@producer.chainergy.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
         - /var/run/:/host/var/run/
-        - ${GOPATH}/src/github.com/EnergyXChain/chaincode:/opt/gopath/src/github.com/chaincode
+        - ${GOPATH}/src/github.com/chainergy/chaincode:/opt/gopath/src/github.com/chaincode
         - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
         - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
-      - orderer.energyXchain.com
-      - peer0.producer.energyXchain.com
-      - peer1.producer.energyXchain.com
-      - peer0.consumer.energyXchain.com
-      - peer1.consumer.energyXchain.com
-      - peer0.shipper.energyXchain.com
-      - peer1.shipper.energyXchain.com
-      - peer0.transporter.energyXchain.com
-      - peer1.transporter.energyXchain.com
+      - orderer.chainergy.com
+      - peer0.producer.chainergy.com
+      - peer1.producer.chainergy.com
+      - peer0.consumer.chainergy.com
+      - peer1.consumer.chainergy.com
+      - peer0.shipper.chainergy.com
+      - peer1.shipper.chainergy.com
+      - peer0.transporter.chainergy.com
+      - peer1.transporter.chainergy.com
     networks:
       - byfn

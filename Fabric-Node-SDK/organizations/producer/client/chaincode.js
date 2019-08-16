@@ -95,8 +95,8 @@ router.post('/upload', async function (req, res) {
 
   form.on('file', (field, file) => {
     console.log(JSON.stringify(file));
-    //let newpath = path.join(__dirname, 'uploads', file.name);/home/steve/go/src/github.com/EnergyXChain
-    let newpath = `${process.env.GOPATH}/src/github.com/EnergyXChain/uploads/${file.name}`;
+    //let newpath = path.join(__dirname, 'uploads', file.name);/home/steve/go/src/github.com/theDweeb
+    let newpath = `${process.env.GOPATH}/src/github.com/theDweeb/uploads/${file.name}`;
     let oldpath = file.path;
     let filename = file.name;
     fs.rename(oldpath, newpath, (err) => {

@@ -96,7 +96,7 @@
         "ca-consumer"
       ],
       "adminPrivateKey": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/8a7ba4c9fd96c9b096f275efe22d71b61905a75082feb604660c9ecf1cf70236_sk"
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/3ee441c92bc940af7e48d166fd66af8ab51c7884329e4f2adf2be6c63b754c42_sk"
       },
       "signedCert": {
         "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/signcerts/Admin@consumer.energyXchain.com-cert.pem"

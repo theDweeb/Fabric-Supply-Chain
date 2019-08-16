@@ -11,7 +11,7 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: Orderer
-    Domain: energyXchain.com
+    Domain: chainergy.com
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
@@ -26,7 +26,7 @@ PeerOrgs:
   # Producer
   # ---------------------------------------------------------------------------
   - Name: Producer
-    Domain: producer.energyXchain.com
+    Domain: producer.chainergy.com
     EnableNodeOUs: true
     # ---------------------------------------------------------------------------
     # "Specs"
@@ -45,8 +45,8 @@ PeerOrgs:
     #                 Org.Domain, respectively.
     # ---------------------------------------------------------------------------
     # Specs:
-    #   - Hostname: foo # implicitly "foo.org1.energyXchain.com"
-    #     CommonName: foo27.org5.energyXchain.com # overrides Hostname-based FQDN set above
+    #   - Hostname: foo # implicitly "foo.org1.chainergy.com"
+    #     CommonName: foo27.org5.chainergy.com # overrides Hostname-based FQDN set above
     #   - Hostname: bar
     #   - Hostname: baz
     # ---------------------------------------------------------------------------
@@ -76,7 +76,7 @@ PeerOrgs:
   # Org2: See "Producer" for full specification
   # ---------------------------------------------------------------------------
   - Name: Consumer
-    Domain: consumer.energyXchain.com
+    Domain: consumer.chainergy.com
     EnableNodeOUs: true
     Template:
       Count: 2
@@ -87,7 +87,7 @@ PeerOrgs:
   # Org3: See "Producer" for full specification
   # ---------------------------------------------------------------------------
   - Name: Shipper
-    Domain: shipper.energyXchain.com
+    Domain: shipper.chainergy.com
     EnableNodeOUs: true
     Template:
       Count: 2
@@ -98,7 +98,7 @@ PeerOrgs:
   # Org4: See "Producer" for full specification
   # ---------------------------------------------------------------------------
   - Name: Transporter
-    Domain: transporter.energyXchain.com
+    Domain: transporter.chainergy.com
     EnableNodeOUs: true
     Template:
       Count: 2

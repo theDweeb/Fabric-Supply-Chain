@@ -5,8 +5,8 @@ import MainNav from './components/MainNav/MainNav';
 import SignIn from './components/SignIn/SignIn';
 import Logo from './components/Logo/Logo';
 import CreateUser from './components/CreateUser/CreateUser';
-import BuyGas from './components/BuyGas/BuyGas';
-import SellGas from './components/SellGas/SellGas';
+import BuyAsset from './components/BuyAsset/BuyAsset';
+import SellAsset from './components/SellAsset/SellAsset';
 import Upload from './components/Upload/Upload';
 
 class App extends Component {
@@ -63,13 +63,13 @@ class App extends Component {
               : null
           }
           {
-            this.state.route === 'buygas'
-              ? <BuyGas activeOrg={this.state.activeOrg} />
+            this.state.route === 'buyasset'
+              ? <BuyAsset activeOrg={this.state.activeOrg} />
               : null
           }
           {
-            this.state.route === 'sellgas'
-              ? <SellGas activeOrg={this.state.activeOrg} />
+            this.state.route === 'sellasset'
+              ? <SellAsset activeOrg={this.state.activeOrg} />
               : null
           }
           {

@@ -25,7 +25,7 @@ Organizations:
         ID: OrdererMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/energyXchain.com/msp
+        MSPDir: crypto-config/ordererOrganizations/chainergy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -49,7 +49,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: ProducerMSP
 
-        MSPDir: crypto-config/peerOrganizations/producer.energyXchain.com/msp
+        MSPDir: crypto-config/peerOrganizations/producer.chainergy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -70,7 +70,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.producer.energyXchain.com
+            - Host: peer0.producer.chainergy.com
               Port: 7051
 
     - &Consumer
@@ -81,7 +81,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: ConsumerMSP
 
-        MSPDir: crypto-config/peerOrganizations/consumer.energyXchain.com/msp
+        MSPDir: crypto-config/peerOrganizations/consumer.chainergy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -101,7 +101,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.consumer.energyXchain.com
+            - Host: peer0.consumer.chainergy.com
               Port: 9051
 
     - &Shipper
@@ -112,7 +112,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: ShipperMSP
 
-        MSPDir: crypto-config/peerOrganizations/shipper.energyXchain.com/msp
+        MSPDir: crypto-config/peerOrganizations/shipper.chainergy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -132,7 +132,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.shipper.energyXchain.com
+            - Host: peer0.shipper.chainergy.com
               Port: 11051
 
     - &Transporter
@@ -143,7 +143,7 @@ Organizations:
         # ID to load the MSP definition as
         ID: TransporterMSP
 
-        MSPDir: crypto-config/peerOrganizations/transporter.energyXchain.com/msp
+        MSPDir: crypto-config/peerOrganizations/transporter.chainergy.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -163,7 +163,7 @@ Organizations:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.transporter.energyXchain.com
+            - Host: peer0.transporter.chainergy.com
               Port: 13051
 
 ################################################################################
@@ -274,7 +274,7 @@ Orderer: &OrdererDefaults
     OrdererType: solo
 
     Addresses:
-        - orderer.energyXchain.com:7050
+        - orderer.chainergy.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -403,7 +403,7 @@ Profiles:
             OrdererType: kafka
             Kafka:
                 Brokers:
-                - kafka.energyXchain.com:9092
+                - kafka.chainergy.com:9092
 
             Organizations:
             - *OrdererOrg
@@ -428,32 +428,32 @@ Profiles:
             OrdererType: etcdraft
             EtcdRaft:
                 Consenters:
-                - Host: orderer.energyXchain.com
+                - Host: orderer.chainergy.com
                   Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer.energyXchain.com/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer.energyXchain.com/tls/server.crt
-                - Host: orderer2.energyXchain.com
+                  ClientTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer.chainergy.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer.chainergy.com/tls/server.crt
+                - Host: orderer2.chainergy.com
                   Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer2.energyXchain.com/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer2.energyXchain.com/tls/server.crt
-                - Host: orderer3.energyXchain.com
+                  ClientTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer2.chainergy.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer2.chainergy.com/tls/server.crt
+                - Host: orderer3.chainergy.com
                   Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer3.energyXchain.com/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer3.energyXchain.com/tls/server.crt
-                - Host: orderer4.energyXchain.com
+                  ClientTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer3.chainergy.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer3.chainergy.com/tls/server.crt
+                - Host: orderer4.chainergy.com
                   Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer4.energyXchain.com/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer4.energyXchain.com/tls/server.crt
-                - Host: orderer5.energyXchain.com
+                  ClientTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer4.chainergy.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer4.chainergy.com/tls/server.crt
+                - Host: orderer5.chainergy.com
                   Port: 7050
-                  ClientTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer5.energyXchain.com/tls/server.crt
-                  ServerTLSCert: crypto-config/ordererOrganizations/energyXchain.com/orderers/orderer5.energyXchain.com/tls/server.crt
+                  ClientTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer5.chainergy.com/tls/server.crt
+                  ServerTLSCert: crypto-config/ordererOrganizations/chainergy.com/orderers/orderer5.chainergy.com/tls/server.crt
             Addresses:
-                - orderer.energyXchain.com:7050
-                - orderer2.energyXchain.com:7050
-                - orderer3.energyXchain.com:7050
-                - orderer4.energyXchain.com:7050
-                - orderer5.energyXchain.com:7050
+                - orderer.chainergy.com:7050
+                - orderer2.chainergy.com:7050
+                - orderer3.chainergy.com:7050
+                - orderer4.chainergy.com:7050
+                - orderer5.chainergy.com:7050
 
             Organizations:
             - *OrdererOrg

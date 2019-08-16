@@ -15,7 +15,7 @@ class MainNav extends Component {
                 <nav className="dt ma0 bb dark-blue w-100 border-box pa3 ph5-ns shadow-5">
                     <ul className="dtc v-mid w-75 tl">
                         <li
-                            className="link dim dark-blue fw4 f6 f5-ns dib mr3 mr4-ns pointer">EnergyXchain</li>
+                            className="link dim dark-blue fw4 f6 f5-ns dib mr3 mr4-ns pointer">Chainergy</li>
                     </ul>
                     <ul className="dtc v-mid w-75 tr">
                         <li className="link dim light-gray f6 f5-ns dib mr3 mr4-ns pointer" title="About">About</li>
@@ -29,19 +29,19 @@ class MainNav extends Component {
                     <ul className="dtc v-mid w-75 tl">
                         <li
                             onClick={this.props.onSignOut}
-                            className="link dim dark-blue fw4 f6 f5-ns dib mr3 mr4-ns pointer">EnergyXchain</li>
+                            className="link dim dark-blue fw4 f6 f5-ns dib mr3 mr4-ns pointer">Chainergy</li>
                     </ul>
                     <ul className="dropdown dtc v-mid">
                         <li className="dropbtn dim white fw4 f6 f5-ns dib pointer b">Smart Contracts</li>
                         <div className="dropdown-content center">
                             <li
-                                onClick={() => this.props.onRouteChange('buygas')}
+                                onClick={() => this.props.onRouteChange('buyasset')}
                                 className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 center"
-                                value="buySell">Buy Gas</li>
+                                value="buySell">Buy Asset</li>
                             <li
-                                onClick={() => this.props.onRouteChange('sellgas')}
+                                onClick={() => this.props.onRouteChange('sellasset')}
                                 className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 center"
-                                value="buySell">Sell Gas</li>
+                                value="buySell">Sell Asset</li>
                             <li className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 center" value="shipping">Shipping</li>
                         </div>
                     </ul>

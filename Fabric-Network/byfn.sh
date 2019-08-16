@@ -209,7 +209,7 @@ function networkUp() {
 # and relaunch the orderer and peers with latest tag
 function upgradeNetwork() {
   if [[ "$IMAGETAG" == *"1.4"* ]] || [[ $IMAGETAG == "latest" ]]; then
-    docker inspect -f '{{.Config.Volumes}}' orderer.energyXchain.com | grep -q '/var/hyperledger/production/orderer'
+    docker inspect -f '{{.Config.Volumes}}' orderer.chainergy.com | grep -q '/var/hyperledger/production/orderer'
     if [ $? -ne 0 ]; then
       echo "ERROR !!!! This network does not appear to start with fabric-samples >= v1.3.x?"
       exit 1
@@ -244,11 +244,11 @@ function upgradeNetwork() {
     docker-compose $COMPOSE_FILES up -d --no-deps cli
 
     echo "Upgrading orderer"
-    docker-compose $COMPOSE_FILES stop orderer.energyXchain.com
-    docker cp -a orderer.energyXchain.com:/var/hyperledger/production/orderer $LEDGERS_BACKUP/orderer.energyXchain.com
-    docker-compose $COMPOSE_FILES up -d --no-deps orderer.energyXchain.com
+    docker-compose $COMPOSE_FILES stop orderer.chainergy.com
+    docker cp -a orderer.chainergy.com:/var/hyperledger/production/orderer $LEDGERS_BACKUP/orderer.chainergy.com
+    docker-compose $COMPOSE_FILES up -d --no-deps orderer.chainergy.com
 
-    for PEER in peer0.producer.energyXchain.com peer1.producer.energyXchain.com peer0.consumer.energyXchain.com peer1.consumer.energyXchain.com; do
+    for PEER in peer0.producer.chainergy.com peer1.producer.chainergy.com peer0.consumer.chainergy.com peer1.consumer.chainergy.com; do
       echo "Upgrading peer $PEER"
 
       # Stop the peer and backup its ledger
@@ -330,22 +330,22 @@ function replacePrivateKey() {
   # The next steps will replace the template's contents with the
   # actual values of the private key file names for the two CAs.
 
-  cd crypto-config/peerOrganizations/producer.energyXchain.com/ca/
+  cd crypto-config/peerOrganizations/producer.chainergy.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/PRODUCER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
 
-  cd crypto-config/peerOrganizations/consumer.energyXchain.com/ca/
+  cd crypto-config/peerOrganizations/consumer.chainergy.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/CONSUMER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
 
-  cd crypto-config/peerOrganizations/shipper.energyXchain.com/ca/
+  cd crypto-config/peerOrganizations/shipper.chainergy.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/SHIPPER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
   
-  cd crypto-config/peerOrganizations/transporter.energyXchain.com/ca/
+  cd crypto-config/peerOrganizations/transporter.chainergy.com/ca/
   PRIV_KEY=$(ls *_sk)
   cd "$CURRENT_DIR"
   sed $OPTS "s/TRANSPORTER_PRIVATE_KEY/${PRIV_KEY}/g" docker-compose-ca.yaml
@@ -355,28 +355,28 @@ function replacePrivateKey() {
     rm docker-compose-ca.yamlt
   fi
 
-  cd crypto-config/peerOrganizations/producer.energyXchain.com/users/Admin@producer.energyXchain.com/msp/keystore/
+  cd crypto-config/peerOrganizations/producer.chainergy.com/users/Admin@producer.chainergy.com/msp/keystore/
   PRIV_KEY=$(ls *_sk)
   cd "$SDK_DIR/producer/config/"
   sed $OPTS "s/PRODUCER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json
   cd "$CURRENT_DIR";
 
 
-  cd crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/
+  cd crypto-config/peerOrganizations/consumer.chainergy.com/users/Admin@consumer.chainergy.com/msp/keystore/
   PRIV_KEY=$(ls *_sk)
   cd "$SDK_DIR/consumer/config/"
   sed $OPTS "s/CONSUMER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json 
   cd "$CURRENT_DIR";
 
 
-  cd crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/keystore/
+  cd crypto-config/peerOrganizations/shipper.chainergy.com/users/Admin@shipper.chainergy.com/msp/keystore/
   PRIV_KEY=$(ls *_sk)
   cd "$SDK_DIR/shipper/config/"
   sed $OPTS "s/SHIPPER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json 
   cd "$CURRENT_DIR";
 
 
-  cd crypto-config/peerOrganizations/transporter.energyXchain.com/users/Admin@transporter.energyXchain.com/msp/keystore/
+  cd crypto-config/peerOrganizations/transporter.chainergy.com/users/Admin@transporter.chainergy.com/msp/keystore/
   PRIV_KEY=$(ls *_sk)
   cd "$SDK_DIR/transporter/config/"
   sed $OPTS "s/TRANSPORTER_PRIVATE_KEY/${PRIV_KEY}/g" cp-local.json 
@@ -446,7 +446,7 @@ function generateCerts() {
 # These headers are important, as we will pass them in as arguments when we create
 # our artifacts.  This file also contains two additional specifications that are worth
 # noting.  Firstly, we specify the anchor peers for each Peer Org
-# (``peer0.producer.energyXchain.com`` & ``peer0.consumer.energyXchain.com``).  Secondly, we point to
+# (``peer0.producer.chainergy.com`` & ``peer0.consumer.chainergy.com``).  Secondly, we point to
 # the location of the MSP directory for each member, in turn allowing us to store the
 # root certificates for each Org in the orderer genesis block.  This is a critical
 # concept. Now any network entity communicating with the ordering service can have
