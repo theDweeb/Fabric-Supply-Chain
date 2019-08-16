@@ -6,6 +6,7 @@
     "cors": "^2.8.5",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-dropzone": "^10.1.7",
     "react-particles-js": "^2.7.0",
     "react-scripts": "3.0.1",
     "react-tilt": "^0.1.4",

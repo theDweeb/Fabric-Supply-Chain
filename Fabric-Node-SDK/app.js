@@ -7,6 +7,8 @@ let morgan = require('morgan');
 const winston = require('./fabric/winston').getLogger(module);
 let app = express();
 
+app.use(cors());
+
 // Routes
 let producerIndexRouter = require('./organizations/producer/client/index');
 let producerUsersRouter = require('./organizations/producer/client/users');
@@ -77,6 +79,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-app.use('*', cors());
+
 
 module.exports = app;

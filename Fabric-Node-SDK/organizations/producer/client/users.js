@@ -29,7 +29,7 @@ router.post('/create', async function(req, res) {
 
   let response = await fabric.createUser(admin, org, user);
 
-  res.send(response);
+  res.json(response);
 });
 
 // Search for an enrolled user
@@ -47,7 +47,7 @@ router.post('/search', async function(req, res) {
 
   let response = await fabric.searchUser(org, user);
 
-  res.send(response);
+  res.json(response);
 });
 
 module.exports = router;

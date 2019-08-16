@@ -1,64 +1,86 @@
 import React, { Component } from 'react';
-import Particles from 'react-particles-js';
-import Navigation from './components/Navigation/Navigation';
-import Logo from './components/Logo/Logo';
-import ContractForm from './components/ContractForm/ContractForm';
-import Results from './components/Results/Results';
-// import Producer from './components/Producer/Producer';
-// import Consumer from './components/Consumer/Consumer';
-// import Shipper from './components/Shipper/Shipper';
-// import Transporter from './components/Transporter/Transporter';
 import './App.css';
 
-const particlesOptions = {
-  particles: {
-    number: {
-      value: 100,
-      density: {
-        enable: true,
-        value_area: 800
-      }
-    }
-  }
-}
+import MainNav from './components/MainNav/MainNav';
+import SignIn from './components/SignIn/SignIn';
+import Logo from './components/Logo/Logo';
+import CreateUser from './components/CreateUser/CreateUser';
+import BuyGas from './components/BuyGas/BuyGas';
+import SellGas from './components/SellGas/SellGas';
+import Upload from './components/Upload/Upload';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      route: 'buySell',
-      activeOrg: 'producer',
-      results: ''
+      signedIn: false,
+      activeOrg: 'none',
+      route: ''
     }
   }
 
+  onSignIn = () => {
+    console.log("Signed In")
+    this.setState({
+      signedIn: true
+    });
+  }
+
+  onSignOut = () => {
+    console.log("Signed Out")
+    this.setState({
+      signedIn: false,
+      activeOrg: '',
+      route: ''
+    });
+  }
+
+  setActiveOrg = (org) => {
+    this.setState({ activeOrg: org })
+  }
+
   onRouteChange = (route) => {
-    console.log(route);
-    this.setState({route: route})
-  }
-
-  onOrgChange = (org) => {
-    this.setState({activeOrg: org})
-  }
-
-  onResultsChange = (results) => {
-    console.log(results)
-    this.setState({results: results});
+    this.setState({ route: route });
   }
 
   render() {
-    return (
-      <div className="App" >
-        <Particles className='particles' params={particlesOptions} />
-        <Navigation onRouteChange={this.onRouteChange} onOrgChange={this.onOrgChange} activeOrg={this.state.activeOrg}/>
-        <Logo activeOrg={this.state.activeOrg}/>
-        {
-          this.state.route === 'buySell'
-          ? <ContractForm onRouteChange={this.onRouteChange} onResultsChange={this.onResultsChange}/>
-          : <Results results={this.state.results}/>
-        }
-      </div>
-    );
+    if (this.state.signedIn === false) {
+      return (
+        <div>
+          <MainNav signedIn={this.state.signedIn} />
+          <Logo activeOrg={this.state.activeOrg} />
+          <SignIn onSignIn={this.onSignIn} signedIn={this.state.signedIn} activeOrg={this.state.activeOrg} setActiveOrg={this.setActiveOrg} />
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <MainNav signedIn={this.state.signedIn} onSignOut={this.onSignOut} onRouteChange={this.onRouteChange} route={this.state.route} />
+          <Logo activeOrg={this.state.activeOrg} />
+          {
+            this.state.route === 'createUser'
+              ? <CreateUser activeOrg={this.state.activeOrg} />
+              : null
+          }
+          {
+            this.state.route === 'buygas'
+              ? <BuyGas activeOrg={this.state.activeOrg} />
+              : null
+          }
+          {
+            this.state.route === 'sellgas'
+              ? <SellGas activeOrg={this.state.activeOrg} />
+              : null
+          }
+          {
+            this.state.route === 'uploadCC'
+              ? <Upload activeOrg={this.state.activeOrg} onRouteChange={this.onRouteChange}/>
+              : null
+          }
+
+        </div>
+      )
+    }
   }
 }
 

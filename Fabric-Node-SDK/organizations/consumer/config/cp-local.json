@@ -96,7 +96,7 @@
         "ca-consumer"
       ],
       "adminPrivateKey": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/486b4bce21c6627b0d66b82489b8d5d24c07ec18933eeb079e199612d699c95b_sk"
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/keystore/8a7ba4c9fd96c9b096f275efe22d71b61905a75082feb604660c9ecf1cf70236_sk"
       },
       "signedCert": {
         "path":"../Fabric-Network/crypto-config/peerOrganizations/consumer.energyXchain.com/users/Admin@consumer.energyXchain.com/msp/signcerts/Admin@consumer.energyXchain.com-cert.pem"
@@ -118,7 +118,7 @@
       "mspid": "TransporterMSP",
       "peers": [
         "peer0.transporter.energyXchain.com",
-        "peer1.shipper.energyXchain.com"
+        "peer1.transporter.energyXchain.com"
       ],
       "certificateAuthorities": [
         "ca-transporter"

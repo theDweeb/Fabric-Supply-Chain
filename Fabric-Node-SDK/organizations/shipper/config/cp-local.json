@@ -107,7 +107,7 @@
         "ca-shipper"
       ],
       "adminPrivateKey": {
-        "path":"../Fabric-Network/crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/keystore/f0bc7877bc219def1aeadc7cb33861c2d63ce8332653c032d9a27cfe4c73d6b2_sk"
+        "path":"../Fabric-Network/crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/keystore/777c4bba2c0cea1aaffeddaa03371d5c10c6c3e38e77461ac972463608d736b0_sk"
       },
       "signedCert": {
         "path":"../Fabric-Network/crypto-config/peerOrganizations/shipper.energyXchain.com/users/Admin@shipper.energyXchain.com/msp/signcerts/Admin@shipper.energyXchain.com-cert.pem"
@@ -118,7 +118,7 @@
       "mspid": "TransporterMSP",
       "peers": [
         "peer0.transporter.energyXchain.com",
-        "peer1.shipper.energyXchain.com"
+        "peer1.transporter.energyXchain.com"
       ],
       "certificateAuthorities": [
         "ca-transporter"

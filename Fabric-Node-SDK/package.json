@@ -21,6 +21,7 @@
     "fabric-ca-client": "^1.4.2",
     "fabric-client": "^1.4.3",
     "fabric-network": "^1.4.2",
+    "formidable": "^1.2.1",
     "morgan": "^1.9.1",
     "path": "^0.12.7",
     "pug": "^2.0.4",
