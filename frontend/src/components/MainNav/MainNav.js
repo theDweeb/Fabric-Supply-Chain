@@ -36,13 +36,13 @@ class MainNav extends Component {
                         <div className="dropdown-content center">
                             <li
                                 onClick={() => this.props.onRouteChange('buyasset')}
-                                className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 center"
+                                className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 tc"
                                 value="buySell">Buy Asset</li>
                             <li
                                 onClick={() => this.props.onRouteChange('sellasset')}
-                                className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 center"
+                                className="link dim dark-blue f6 f5-ns dib pointer ph3 pv3 tc"
                                 value="buySell">Sell Asset</li>
-                            <li className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 center" value="shipping">Shipping</li>
+                            <li className="link dim dark-blue f6 f5-ns dib pointer ph4 pv3 tc" value="shipping">Shipping</li>
                         </div>
                     </ul>
                     <ul className="dropdown dtc v-mid">

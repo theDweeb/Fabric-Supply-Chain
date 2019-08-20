@@ -4,12 +4,16 @@ logs
 node_modules
 organizations/producer/hfc-cvs
 organizations/producer/hfc-kvs
+organizations/producer/config/cp-local.json
 
 organizations/consumer/hfc-cvs
 organizations/consumer/hfc-kvs
+organizations/consumer/config/cp-local.json
 
 organizations/transporter/hfc-cvs
 organizations/transporter/hfc-kvs
+organizations/transporter/config/cp-local.json
 
 organizations/shipper/hfc-cvs
 organizations/shipper/hfc-kvs
+organizations/shipper/config/cp-local.json
