@@ -5,11 +5,11 @@ const User = require('fabric-client').User;
 const Client = require('fabric-client');
 
 
-let createUser = async function(admin, org, user) {
+let createUser = async function (admin, org, user) {
     logger.info(`===================================`);
     logger.info(`========= Create User =============`);
     logger.info(`===================================`);
-    
+
     let createUserResponse = {
         success: false,
         message: ""
@@ -24,12 +24,12 @@ let createUser = async function(admin, org, user) {
     logger.debug(`New user: ${newUser._name}, roles: ${newUser._roles}, affiliation: ${newUser._affiliation}`);
 
     try {
-        // Returns an instance of the admin User object.
-        let adminClient = await helper.getClient(org, admin);
-
         // Sets admin for as the security context of this client instance.
         // This admin's signing identity will be used to sign all requests.
         let adminSignature = await helper.setClient(org, admin);
+        
+        // Returns an instance of the admin User object.
+        let adminClient = await helper.getClient(org, admin);
 
         // Returns an instance of the CA as defined by the settings in the currently loaded connection profile.
         let CA = await adminClient.getCertificateAuthority();
@@ -68,18 +68,18 @@ let createUser = async function(admin, org, user) {
     } catch (error) {
         logger.error(`Error: ${error}`);
         createUserResponse.success = false;
-        createUserResponse.message = `Error: ${error}`;    
+        createUserResponse.message = `Error: ${error}`;
     }
-    return createUserResponse; 
+    return createUserResponse;
 }
 
-let searchUser = async function(org, user) {
+let searchUser = async function (org, user) {
     logger.info(`===================================`);
     logger.info(`========= Search User =============`);
     logger.info(`===================================`);
 
     let username;
-    if(user.id == undefined) {
+    if (user.id == undefined) {
         username = user.username
     } else {
         username = user.id;
@@ -90,110 +90,110 @@ let searchUser = async function(org, user) {
         success: false,
         message: ""
     }
-        try {
-            /* Producer */
-            if(orgName == "producer") {
-                let cp = `${appRoot}/organizations/producer/config/cp-local.json`;
-    
-                let client = Client.loadFromConfig(cp);
-                logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
-        
-                await client.initCredentialStores();
-        
-                let userContext = await client.getUserContext(username, true);
-                if(!userContext) {
-                    let msg = `(SEARCH) User: ${username} was not found`
-                    logger.error(msg);
-                    searchUserResponse.success = false;
-                    searchUserResponse.message = msg;
-                } else {
-                    let msg = `(SEARCH) User: ${username} is registered and enrolled`
-                    logger.debug(msg);
-                    searchUserResponse.success = true;
-                    searchUserResponse.message = msg;
-                }
-                return searchUserResponse;
+    try {
+        /* Producer */
+        if (orgName == "producer") {
+            let cp = `${appRoot}/organizations/producer/config/cp-local.json`;
+
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
+
+            await client.initCredentialStores();
+
+            let userContext = await client.getUserContext(username, true);
+            if (!userContext) {
+                let msg = `(SEARCH) User: ${username} was not found`
+                logger.error(msg);
+                searchUserResponse.success = false;
+                searchUserResponse.message = msg;
+            } else {
+                let msg = `(SEARCH) User: ${username} is registered and enrolled`
+                logger.debug(msg);
+                searchUserResponse.success = true;
+                searchUserResponse.message = msg;
             }
-            /* Consumer */
-            else if(orgName == "consumer") {
-                let cp = `${appRoot}/organizations/consumer/config/cp-local.json`;
-        
-                let client = Client.loadFromConfig(cp);
-                logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
-        
-                await client.initCredentialStores();
-        
-                let userContext = await client.getUserContext(username, true);
-                if(!userContext) {
-                    let msg = `(SEARCH) User: ${username} was not found`
-                    logger.error(msg);
-                    searchUserResponse.success = false;
-                    searchUserResponse.message = msg;
-                    throw new Error(msg);
-                } else {
-                    let msg = `(SEARCH) User: ${username} is registered and enrolled`
-                    logger.debug(msg);
-                    searchUserResponse.success = true;
-                    searchUserResponse.message = msg;
-                }
-                return searchUserResponse;
-            }
-            /* Shipper */
-            else if(orgName == "shipper") {
-                let cp = `${appRoot}/organizations/shipper/config/cp-local.json`;
-        
-                let client = Client.loadFromConfig(cp);
-                logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
-        
-                await client.initCredentialStores();
-        
-                let userContext = await client.getUserContext(username, true);
-                if(!userContext) {
-                    let msg = `(SEARCH) User: ${username} was not found`
-                    logger.error(msg);
-                    searchUserResponse.success = false;
-                    searchUserResponse.message = msg;
-                    throw new Error(msg);
-                } else {
-                    let msg = `(SEARCH) User: ${username} is registered and enrolled`
-                    logger.debug(msg);
-                    searchUserResponse.success = true;
-                    searchUserResponse.message = msg;
-                }
-                return searchUserResponse;
-            }
-            /* Transporter */
-            else if(orgName == "transporter") {
-                let cp = `${appRoot}/organizations/transporter/config/cp-local.json`;
-        
-                let client = Client.loadFromConfig(cp);
-                logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
-        
-                await client.initCredentialStores();
-        
-                let userContext = await client.getUserContext(username, true);
-                if(!userContext) {
-                    let msg = `(SEARCH) User: ${username} was not found`
-                    logger.error(msg);
-                    searchUserResponse.success = false;
-                    searchUserResponse.message = msg;
-                    throw new Error(msg);
-                } else {
-                    let msg = `(SEARCH) User: ${username} is registered and enrolled`
-                    logger.debug(msg);
-                    searchUserResponse.success = true;
-                    searchUserResponse.message = msg;
-                }
-                return searchUserResponse;
-            }
-    
-            else {
-                logger.error(`Connection profile '${orgName}' not found.`)
-                throw new Error(`User not found`)
-            }
-        } catch(error) {
-            return error;
+            return searchUserResponse;
         }
+        /* Consumer */
+        else if (orgName == "consumer") {
+            let cp = `${appRoot}/organizations/consumer/config/cp-local.json`;
+
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
+
+            await client.initCredentialStores();
+
+            let userContext = await client.getUserContext(username, true);
+            if (!userContext) {
+                let msg = `(SEARCH) User: ${username} was not found`
+                logger.error(msg);
+                searchUserResponse.success = false;
+                searchUserResponse.message = msg;
+                throw new Error(msg);
+            } else {
+                let msg = `(SEARCH) User: ${username} is registered and enrolled`
+                logger.debug(msg);
+                searchUserResponse.success = true;
+                searchUserResponse.message = msg;
+            }
+            return searchUserResponse;
+        }
+        /* Shipper */
+        else if (orgName == "shipper") {
+            let cp = `${appRoot}/organizations/shipper/config/cp-local.json`;
+
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
+
+            await client.initCredentialStores();
+
+            let userContext = await client.getUserContext(username, true);
+            if (!userContext) {
+                let msg = `(SEARCH) User: ${username} was not found`
+                logger.error(msg);
+                searchUserResponse.success = false;
+                searchUserResponse.message = msg;
+                throw new Error(msg);
+            } else {
+                let msg = `(SEARCH) User: ${username} is registered and enrolled`
+                logger.debug(msg);
+                searchUserResponse.success = true;
+                searchUserResponse.message = msg;
+            }
+            return searchUserResponse;
+        }
+        /* Transporter */
+        else if (orgName == "transporter") {
+            let cp = `${appRoot}/organizations/transporter/config/cp-local.json`;
+
+            let client = Client.loadFromConfig(cp);
+            logger.debug(`(SEARCH) Connection profile loaded for organization: ${orgName}`);
+
+            await client.initCredentialStores();
+
+            let userContext = await client.getUserContext(username, true);
+            if (!userContext) {
+                let msg = `(SEARCH) User: ${username} was not found`
+                logger.error(msg);
+                searchUserResponse.success = false;
+                searchUserResponse.message = msg;
+                throw new Error(msg);
+            } else {
+                let msg = `(SEARCH) User: ${username} is registered and enrolled`
+                logger.debug(msg);
+                searchUserResponse.success = true;
+                searchUserResponse.message = msg;
+            }
+            return searchUserResponse;
+        }
+
+        else {
+            logger.error(`Connection profile '${orgName}' not found.`)
+            throw new Error(`User not found`)
+        }
+    } catch (error) {
+        return error;
+    }
 
 };
 
